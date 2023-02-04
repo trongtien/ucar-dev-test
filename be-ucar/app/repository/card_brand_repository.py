@@ -6,7 +6,6 @@ from app.api.v1.cardBrand.schema import CardBrandItemRequest
 
 class CardBrandRepository:
 
-
     @staticmethod
     async def selectAll(db: Session, skip: int, limit: int, search_name: str):
         offset = limit * skip

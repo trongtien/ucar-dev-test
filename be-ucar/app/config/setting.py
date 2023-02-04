@@ -8,7 +8,7 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 class Settings(BaseSettings):
     ROJECT_NAME = os.getenv('project_name', 'Fast Api Ucar Dev Test')
-    API_PREFIX = ''
+    API_PREFIX = '/v1'
     BACKEND_CORS_ORIGINS = ['*']
     HOST_SERVER = os.getenv('host_server', 'localhost')
     DB_SERVER_PORT = urllib.parse.quote_plus(str(os.getenv('dev_test', '5432')))
