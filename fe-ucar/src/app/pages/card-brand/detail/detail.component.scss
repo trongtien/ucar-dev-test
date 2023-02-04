@@ -5,6 +5,10 @@
         margin-bottom: pxToRem(36);
     }
 
+    & .card-brand-detail_header-icon{
+        cursor: pointer;
+    }
+
     & .card-brand-detail_header{
         display: flex;
         align-items: flex-start;

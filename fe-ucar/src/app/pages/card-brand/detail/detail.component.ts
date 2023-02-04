@@ -3,7 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { ICommonSelect } from '@app/core/models';
 import { CardBrandService, UploadFileService } from '@app/core/services';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -30,8 +30,11 @@ export class DetailComponent implements OnInit {
   constructor(
     private _formModal: UntypedFormBuilder,
     private _uploadFileService: UploadFileService,
-    private _cardBrandService: CardBrandService
+    private _cardBrandService: CardBrandService,
+    private _location: Location
   ) { }
+
+
 
   public ngOnInit(): void {
     this.optionBrandStatus = this._cardBrandService.optionBrandStatus
@@ -42,6 +45,10 @@ export class DetailComponent implements OnInit {
     this.isUpdate = !this.isUpdate
   }
 
+  public onBackRoute(){
+    this._location.back()
+  }
+
   public submitForm(): void {
 
 
@@ -49,7 +56,6 @@ export class DetailComponent implements OnInit {
 
   public handleChangeFile(info: { file: NzUploadFile }): void {
     this._uploadFileService.getBase64(info.file!.originFileObj!, (img: string) => {
-      console.log('img', img)
       this.loadingUploadFile = false;
       this.avatarUrl = img;
     });
