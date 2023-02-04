@@ -1,0 +1,124 @@
+<div class="card-brand-header">
+  <div class="card-brand-header_left">
+    <h1 nz-typography class="card-brand-header_left-title">CAR BRANDS LIST</h1>
+
+    <nz-select
+      ngModel="selectFilterCardBrand"
+      class="card-brand-header_left-select-filter"
+    >
+      <nz-option
+        *ngFor="let option of filterCardBrand"
+        [nzValue]="option"
+        [nzLabel]="option.label"
+      ></nz-option>
+    </nz-select>
+
+    <nz-input-group
+      [nzPrefix]="suffixIconSearch"
+      class="card-brand-header_left-search-filter"
+    >
+      <input type="text" nz-input placeholder="input search text" />
+    </nz-input-group>
+
+    <ng-template #suffixIconSearch>
+      <span nz-icon nzType="search"></span>
+    </ng-template>
+  </div>
+
+  <div class="card-brand-header_right">
+    <button
+      nz-button
+      nzType="primary"
+      class="card-brand-header_right-button"
+      (click)="setIsModalCreateBrand()"
+    >
+      <span nz-icon nzType="plus" nzTheme="outline"></span>
+      Add Brand
+    </button>
+  </div>
+</div>
+
+<div class="card-brand-table">
+  <nz-table
+    #cardBrandTable
+    nzShowSizeChanger
+    [nzData]="dataTable"
+    [nzBordered]="false"
+    [nzLoading]="false"
+    [nzScroll]="{ x: '150', y: '300' }"
+  >
+    <tbody>
+      <ng-container *ngFor="let item of cardBrandTable.data">
+        <tr>
+          <td [width]="'10%'">
+            <img
+              class="table-body-image"
+              src="/assets/images/avatar_item.svg"
+            />
+          </td>
+          <td [width]="'35%'">
+            <div class="table-body-info-card">
+              <p class="table-body-info-card_name">{{ item.name }}</p>
+              <p class="table-body-info-card_note">
+                <span
+                  class="table-body-info-card_description table-body-eclipse"
+                >
+                  {{ item.description }}
+                </span>
+                <span class="table-body-info-card_model-number">
+                  {{ item.number_model }} Models
+                </span>
+              </p>
+            </div>
+          </td>
+          <td [width]="'16%'">
+            <div class="table-body-time">
+              <p class="table-body-time_title">Last Update</p>
+              <p class="table-body-time_date">{{ item.last_update }}</p>
+            </div>
+          </td>
+          <td [width]="'20%'">
+            <span class="table-body-status">
+              <span
+                class="table-body-status_icon"
+                [ngClass]="
+                  item.status === 1
+                    ? 'table-body-status_icon-active'
+                    : 'table-body-status_icon-inactive'
+                "
+              ></span>
+
+              <ng-container
+                class="table-body-status_name"
+                *ngIf="item.status === 1; else statusCardBrandInactive"
+              >
+                <ng-container
+                  *ngTemplateOutlet="statusCardBrandACtive"
+                ></ng-container>
+              </ng-container>
+
+              <ng-template #statusCardBrandACtive>
+                <span class="table-body-status_name-active">Active</span>
+              </ng-template>
+
+              <ng-template #statusCardBrandInactive>
+                <span class="table-body-status_name-inactive">Inactive</span>
+              </ng-template>
+            </span>
+          </td>
+
+          <td [width]="'8%'">
+            <button class="table-body-action-view" nz-button nzType="default" (click)="onDetail(item.id)">
+              View Details
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </nz-table>
+</div>
+
+<app-modal-cu-card-brand
+  [isVisible]="isModalCreateBrand"
+  (closeModal)="setIsModalCreateBrand()"
+></app-modal-cu-card-brand>

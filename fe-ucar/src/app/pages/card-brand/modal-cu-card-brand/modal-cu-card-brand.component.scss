@@ -1,0 +1,33 @@
+@import "src/assets/styles";
+
+.modal-create-card-brand-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-items: center;
+
+    & .modal-create-card-brand-header_title {
+        margin-bottom: pxToRem(4);
+        font-weight: 600;
+        font-size: pxToRem(16);
+        font-family: $secondary-font;
+        color: $primary-text;
+    }
+
+    & .modal-create-card-brand-header_description {
+        margin-bottom: 0;
+        font-weight: 400;
+        font-size: pxToRem(14);
+        font-family: $secondary-font;
+        color: $Neutral-7;
+    }
+}
+
+.title-form-modal-card-brand {
+    font-family: $secondary-font;
+    font-weight: 600;
+    font-size: pxToRem(14);
+    color: $secondary-text;
+    padding-bottom: pxToRem(12);
+    border-bottom: pxToRem(1) solid $Neutral-4;
+}

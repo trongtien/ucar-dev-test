@@ -1,0 +1,59 @@
+@import "src/assets/styles";
+
+.card-brand-detail{
+    & .mb-36 {
+        margin-bottom: pxToRem(36);
+    }
+
+    & .card-brand-detail_header{
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        align-items: center;
+        gap: pxToRem(17);
+       
+
+        & .card-brand-detail_header-title{
+            margin-bottom: 0;
+        }
+    }
+
+    & .detail-card-brand-info{
+        display: flex;
+        gap: pxToRem(4);
+    }
+
+    & .title-form-card-brand {
+        font-family: $secondary-font;
+        font-weight: 600;
+        font-size: pxToRem(14);
+        color: $secondary-text;
+        padding-bottom: pxToRem(12);
+        border-bottom: pxToRem(1) solid $Neutral-4;
+    }
+
+    & .ant-upload{
+        position: relative;
+        z-index: 1;
+    }
+
+    & .ant-upload:hover{
+        & .card-brand-detail_action-change-logo{
+            visibility: visible;
+        }
+    }
+
+    & .card-brand-detail_action-change-logo{
+        z-index: 10;
+        visibility: hidden;
+        cursor: pointer;
+        position: absolute;
+        font-family: $secondary-font;
+        font-weight: 600;
+        font-size: pxToRem(16);
+        color: $light-text;
+        background: $Neutral-8;
+        opacity: 0.8;
+        overflow: hidden;
+    }
+}

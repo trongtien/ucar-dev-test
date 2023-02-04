@@ -1,0 +1,22 @@
+<nz-layout class="app-layout">
+  <!--  -->
+  <nz-sider
+    class="menu-sidebar"
+    nzCollapsible
+    nzWidth="256px"
+    nzBreakpoint="lg"
+    [nzCollapsedWidth]="isResize ? 0 : 50"
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+  >
+    <app-component-sidebar></app-component-sidebar>
+  </nz-sider>
+  <nz-layout class="left-layout">
+    <app-component-header></app-component-header>
+    <nz-content class="left-layout_content">
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

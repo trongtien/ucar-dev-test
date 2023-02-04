@@ -1,0 +1,36 @@
+@import "src/assets/styles";
+
+nz-header {
+    padding: 0;
+    width: 100%;
+    z-index: 2;
+    max-height: pxToRem(64);
+}
+
+.app-component-header {
+    width: 100%;
+    position: relative;
+    height: pxToRem(64);
+    padding: 0;
+    background: $Neutral-1;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+    display: flex;
+    justify-content: space-between;
+
+    & .app-component-header_right{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        justify-items: center;
+        padding-right: pxToRem(29.73);
+        gap: pxToRem(20);
+
+        & .dropdown-info{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-items: center;
+            gap: pxToRem(8);
+        }
+    }
+}

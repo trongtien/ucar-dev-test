@@ -1,0 +1,21 @@
+<nz-header>
+  <div class="app-component-header">
+    <div class="app-component-left"></div>
+
+    <div class="app-component-header_right">
+      <span nz-icon nzType="info-circle" nzTheme="outline"></span>
+      <span nz-icon nzType="notification" nzTheme="outline"></span>
+
+      <span nz-dropdown [nzDropdownMenu]="menuInfo" class="dropdown-info">
+        <nz-avatar nzIcon="user"></nz-avatar>
+        <span>Admin</span>
+        <span nz-icon nzType="down"></span>
+      </span>
+      <nz-dropdown-menu #menuInfo="nzDropdownMenu">
+        <ul nz-menu nzSelectable>
+          <li nz-menu-item>Logout</li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+  </div>
+</nz-header>
