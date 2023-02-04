@@ -1,3 +1,4 @@
+import math
 from typing import TypeVar
 from typing import Optional
 from fastapi import status
@@ -19,6 +20,7 @@ class ServiceBase():
                 'limit': limit,
                 'page': page,
                 'total_item': total_item,
+                'total_page': math.ceil(total_item/limit),
                 'items': data
             }
         }

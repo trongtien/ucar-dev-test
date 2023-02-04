@@ -2,6 +2,7 @@ import logging
 from app.config.db_pg import get_db_pg
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, status, HTTPException, Depends
+from typing import Optional
 
 from app.core.schema_base import DataResponseBase
 from app.api.v1.cardBrand.schema import CardBrandItemRequest
@@ -12,10 +13,9 @@ router = APIRouter()
 logger = logging.getLogger()
 
 @router.get("",  status_code = status.HTTP_200_OK)
-async def getAll(page: int = 1, limit: int = 10, db: Session = Depends(get_db_pg)):
+async def getAll(page: int = 1, limit: int = 10, search_name: Optional[str] = '', db: Session = Depends(get_db_pg)):
     try:
-        
-        card_brand = await CardBrandService().getAll(db,limit=limit, skip = page)
+        card_brand = await CardBrandService().getAll(db,limit=limit, skip = page, search_name=search_name)
         if card_brand.get('code'):
             return DataResponseBase().success_response(data=card_brand.get('data'))
         else:

@@ -8,17 +8,25 @@ class CardBrandRepository:
 
 
     @staticmethod
-    async def selectAll(db: Session, skip: int, limit: int):
-        print(skip, 'skip')
-        return db.query(CardBrand).offset(skip).limit(10000).all()
+    async def selectAll(db: Session, skip: int, limit: int, search_name: str):
+        offset = limit * skip
+
+        if(len(search_name) or search_name == None):
+            search = "%{}%".format(search_name)
+            return db.query(CardBrand).filter(CardBrand.name.like(search)).offset(offset).limit(limit).all()
+        else:
+            return db.query(CardBrand).offset(offset).limit(limit).all()
+
 
     @staticmethod
     async def countItem(db: Session):
         return db.query(CardBrand).count()
 
+
     @staticmethod
     async def findCardByName(db: Session, name: str):
         return db.query(CardBrand).filter(CardBrand.name == name).first()
+
 
     @staticmethod
     async def insert(db: Session, data: CardBrandItemRequest):
