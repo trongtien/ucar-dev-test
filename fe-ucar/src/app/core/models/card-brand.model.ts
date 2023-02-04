@@ -9,3 +9,11 @@ export interface ITableCardBrandItem {
     checked: boolean;
     expand: boolean;
 }
+
+
+export interface IRequestCardBrandItem{
+    name: string;
+    logo: string;
+    description: string;
+    status: number
+}

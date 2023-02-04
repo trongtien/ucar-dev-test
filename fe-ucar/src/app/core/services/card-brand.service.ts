@@ -1,29 +1,47 @@
 import { Injectable } from "@angular/core";
-import { ICommonSelect } from "../models";
+import { ICommonSelect, IRequestCardBrandItem } from "../models";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { environment } from "@environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CardBrandService{
 
-    public optionBrandStatus: Array<ICommonSelect> = [
-        {
-          label: "Inactive",
-          value: 0
-        },
-        {
-          label: "Active",
-          value: 1
-        }
-      ]
+  private pathApi = 'card-brand/'
 
-    constructor(private _httpClient: HttpClient){}
+  public optionBrandStatus: Array<ICommonSelect> = [
+      {
+        label: "Inactive",
+        value: 0
+      },
+      {
+        label: "Active",
+        value: 1
+      }
+    ]
 
-    public getAll():Observable<any[]>{
-      return this._httpClient.get<any[]>(apiUrl).pipe(
-    }
+  constructor(private _httpClient: HttpClient){}
 
+  public getAll():Observable<any[]>{
+    const url = `${environment.apiUrl}${environment.apiVersion1}${this.pathApi}`
+    return this._httpClient.get<any[]>(url)
+  }
+
+  public finbdById(id: string):Observable<any>{
+    const url = `${environment.apiUrl}${environment.apiVersion1}${this.pathApi}/${id}`
+    return this._httpClient.get<any[]>(url)
+  }
+
+  public create(cardBrandbody: IRequestCardBrandItem):Observable<any>{
+    const url = `${environment.apiUrl}${environment.apiVersion1}${this.pathApi}`
+    return this._httpClient.post<any>(url, cardBrandbody)
+  }
+
+  public update(id: string, cardBrandbody: IRequestCardBrandItem):Observable<any>{
+    const url = `${environment.apiUrl}${environment.apiVersion1}${this.pathApi}/${id}`
+    return this._httpClient.put<any>(url, cardBrandbody)
+  }
     
 }
