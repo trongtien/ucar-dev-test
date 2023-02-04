@@ -5,6 +5,13 @@ from pydantic import BaseModel
 
 T = TypeVar("T")
 
+
+class ReponseServiceSchemaBase(BaseModel):
+    code: bool = True
+    msg: str = ''
+    status: int = 200
+    data: T
+
 class ResponseSchemaBase(BaseModel):
     __abstract__ = True
 
@@ -35,13 +42,22 @@ class DataResponseBase(ResponseSchemaBase, GenericModel, Generic[T]):
         return self
 
     def success_response(self, data: T):
-        self.code = '000'
+        self.code = '1'
         self.message = 'Thành công'
         self.data = data
         return self
 
+    def success_response_list(self, items: T, limit: int, page: int, total_item: int ):
+        self.code = '1'
+        self.message = 'Thành công'
+        self.data = {
+            limit: limit,
+            page: page,
+            total_item: total_item,
+            items: items
+        }
 
-class MetadataSchemaBase(BaseModel):
-    current_page: int
-    page_size: int
-    total_items: int
+        return self
+
+
+

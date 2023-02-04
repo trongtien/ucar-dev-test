@@ -1,0 +1,16 @@
+from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy.orm import relationship
+
+from app.core.model_base import ModalBase
+
+
+class CardModel(ModalBase):
+    __tablename__ = "card_model"
+
+    name = Column(String(255), index=True)
+    avatar = Column(String(255), default=None)
+    description = Column(String, default=None)
+    card_brand_id = Column(Integer, ForeignKey("card_brand.id"))
+
+    card_brand = relationship("CardBrand", back_populates="card_model")
+

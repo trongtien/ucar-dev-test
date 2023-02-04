@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     API_PREFIX = ''
     BACKEND_CORS_ORIGINS = ['*']
     HOST_SERVER = os.getenv('host_server', 'localhost')
-    DB_SERVER_PORT = urllib.parse.quote_plus(str(os.getenv('db_server_port', '5432')))
+    DB_SERVER_PORT = urllib.parse.quote_plus(str(os.getenv('dev_test', '5432')))
     DB_NAME = os.getenv('database_name', 'db_ucar_dev_test')
     DB_USERNAME = urllib.parse.quote_plus(str(os.getenv('db_username', 'postgres')))
     DB_PASSWORD = urllib.parse.quote_plus(str(os.getenv('db_password', '111')))
