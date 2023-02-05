@@ -43,8 +43,12 @@
 
     & .ant-upload:hover{
         & .card-brand-detail_action-change-logo{
-            visibility: visible;
+            visibility: visible !important;
         }
+    }
+
+    & .card-brand-detail_img:hover > .card-brand-detail_action-change-logo{
+        visibility: visible;
     }
 
     & .card-brand-detail_action-change-logo{
@@ -59,5 +63,12 @@
         background: $Neutral-8;
         opacity: 0.8;
         overflow: hidden;
+    }
+
+    & .form-view{
+        font-weight: 600;
+        font-size: pxToRem(14);
+        font-family: $secondary-font;
+        color: $Neutral-8
     }
 }

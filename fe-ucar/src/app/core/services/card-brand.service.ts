@@ -44,7 +44,7 @@ export class CardBrandService{
     const params = new HttpParams()
       .set('page', filter.page ? filter.page.toString() : 1)
       .set('limit', filter.limit ? filter.limit.toString() : 10)
-      .set('search_name', filter.search ? filter.search.trim().toLocaleLowerCase() : '')
+      .set('search_name', filter.search ? filter.search.trim() : '')
       .set('status', filter.status?.toString() ?? '-1')
     
     return this._httpClient.get<Array<ITableCardBrandItem>>(url, {params})

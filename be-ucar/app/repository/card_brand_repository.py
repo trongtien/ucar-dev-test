@@ -9,11 +9,12 @@ class CardBrandRepository:
     @staticmethod
     async def selectAll(db: Session, skip: int, limit: int, search_name: str, status: int):
         offset = limit * skip
-
-        if(int(status) != -1):
-           return db.query(CardBrand).filter(CardBrand.status == status).offset(offset).limit(limit).all()
-        elif(len(search_name) or search_name == None):
-            search = "%{}%".format(search_name)
+        isAllStatus = int(status) != -1
+        search = "%{}%".format(search_name)
+        print ('isAllStatus', isAllStatus)
+        if(isAllStatus):
+            return db.query(CardBrand).filter(CardBrand.status == status).offset(offset).limit(limit).all()
+        elif(len(search_name) or search_name is not None):
             return db.query(CardBrand).filter(CardBrand.name.like(search)).offset(offset).limit(limit).all()
         else:
             return db.query(CardBrand).offset(offset).limit(limit).all()

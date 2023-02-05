@@ -110,7 +110,8 @@ export class CardBrandComponent implements OnInit {
       ...this.filterTable,
       search: valueSearch.length === 0 ? undefined : valueSearch,
       page: '1',
-      limit: '10'
+      limit: '10',
+      status: +this.selectFilterCardBrandStatus$.getValue().value
     })
 
     this.filterTable = {

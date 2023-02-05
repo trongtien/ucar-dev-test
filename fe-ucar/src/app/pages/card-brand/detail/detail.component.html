@@ -53,20 +53,40 @@
 
         <div nz-col nzSpan="24" class="detail-card-brand-info">
           <div nz-col nzSpan="6">
-            <nz-form-item>
-              <nz-form-label [nzSpan]="8">Brand Name</nz-form-label>
-              <nz-form-control
-                [nzSpan]="24"
-                nzErrorTip="Please input your branch name!"
-              >
-                <input
-                  nz-input
-                  formControlName="brand_name"
-                  id="brand_name"
-                  placeholder="Input Content"
-                />
-              </nz-form-control>
-            </nz-form-item>
+            <ng-container *ngIf="isUpdate; else formView">
+              <ng-container *ngTemplateOutlet="formUpdate"></ng-container>
+            </ng-container>
+
+            <ng-template #formView>
+              <nz-form-item>
+                <nz-form-label [nzSpan]="8">Brand Name</nz-form-label>
+                <nz-form-control
+                  [nzSpan]="24"
+                  nzErrorTip="Please input your branch name!"
+                >
+                  <span class="form-view">
+                    {{formDetail.value.brand_name}}
+                  </span>
+                </nz-form-control>
+              </nz-form-item>
+            </ng-template>
+
+            <ng-template #formUpdate>
+              <nz-form-item>
+                <nz-form-label [nzSpan]="8">Brand Name</nz-form-label>
+                <nz-form-control
+                  [nzSpan]="24"
+                  nzErrorTip="Please input your branch name!"
+                >
+                  <input
+                    nz-input
+                    formControlName="brand_name"
+                    id="brand_name"
+                    placeholder="Input Content"
+                  />
+                </nz-form-control>
+              </nz-form-item>
+            </ng-template>
           </div>
   
           <div nz-col nzSpan="6">
@@ -80,6 +100,7 @@
                   id="brand_status"
                   formControlName="brand_status"
                   nzPlaceHolder="Select a option and change input text above"
+                  [nzDisabled]="!isUpdate ? true : false"
                 >
                 <nz-option
                     *ngFor="let option of optionBrandStatus"
@@ -93,21 +114,41 @@
         </div>
 
         <div nz-col nzSpan="12">
-          <nz-form-item>
-            <nz-form-label [nzSpan]="8">Brand Description</nz-form-label>
-            <nz-form-control
-              [nzSpan]="24"
-              nzErrorTip="Please input your username!"
-            >
-              <textarea
-                rows="4"
-                formControlName="brand_description"
-                nz-input
-                id="brand_description"
-                placeholder="input placeholder"
-              ></textarea>
-            </nz-form-control>
-          </nz-form-item>
+          <ng-container *ngIf="isUpdate; else formView">
+            <ng-container *ngTemplateOutlet="formUpdate"></ng-container>
+          </ng-container>
+
+          <ng-template #formView>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="8">Brand Description</nz-form-label>
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Please input your username!"
+              >
+                <span class="form-view">
+                  {{formDetail.value.brand_description}}
+                </span>
+              </nz-form-control>
+            </nz-form-item>
+          </ng-template>
+
+          <ng-template #formUpdate>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="8">Brand Description</nz-form-label>
+              <nz-form-control
+                [nzSpan]="24"
+                nzErrorTip="Please input your username!"
+              >
+                <textarea
+                  rows="4"
+                  formControlName="brand_description"
+                  nz-input
+                  id="brand_description"
+                  placeholder="input placeholder"
+                ></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </ng-template>
         </div>
 
         <div nz-col nzSpan="12">
