@@ -12,15 +12,30 @@ export class CardBrandService{
   private pathApi = 'card-brand'
 
   public optionBrandStatus: Array<ICommonSelect> = [
-      {
-        label: "Inactive",
-        value: 0
-      },
-      {
-        label: "Active",
-        value: 1
-      }
-    ]
+    {
+      label: "Inactive",
+      value: 0
+    },
+    {
+      label: "Active",
+      value: 1
+    }
+  ]
+
+  public optionFilterCardBrand: Array<ICommonSelect>  = [
+    {
+      label: "All",
+      value: -1
+    },
+    {
+      label: "Inactive",
+      value: 0
+    },
+    {
+      label: "Active",
+      value: 1
+    },
+  ]
 
   constructor(private _httpClient: HttpClient){}
 
@@ -29,7 +44,8 @@ export class CardBrandService{
     const params = new HttpParams()
       .set('page', filter.page ? filter.page.toString() : 1)
       .set('limit', filter.limit ? filter.limit.toString() : 10)
-      .set('search_name', filter.search ? filter.search.trim().toLocaleLowerCase() : '');
+      .set('search_name', filter.search ? filter.search.trim().toLocaleLowerCase() : '')
+      .set('status', filter.status?.toString() ?? '-1')
     
     return this._httpClient.get<Array<ITableCardBrandItem>>(url, {params})
   }

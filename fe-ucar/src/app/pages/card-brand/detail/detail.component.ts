@@ -16,7 +16,6 @@ export class DetailComponent implements OnInit {
   public isUpdate: boolean = false;
   public optionBrandStatus: Array<ICommonSelect> = []
   
- 
   private idParam!: string 
 
   // Upload file

@@ -3,11 +3,12 @@
     <h1 nz-typography class="card-brand-header_left-title">CAR BRANDS LIST</h1>
 
     <nz-select
-      ngModel="selectFilterCardBrand"
+      [ngModel]="selectFilterCardBrandStatus$ | async"
       class="card-brand-header_left-select-filter"
+      (ngModelChange)="changeFilterStatus($event)"
     >
       <nz-option
-        *ngFor="let option of filterCardBrand"
+        *ngFor="let option of filterStatusSelect"
         [nzValue]="option"
         [nzLabel]="option.label"
       ></nz-option>

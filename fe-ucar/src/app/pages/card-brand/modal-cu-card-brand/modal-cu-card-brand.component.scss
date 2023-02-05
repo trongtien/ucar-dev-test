@@ -31,3 +31,12 @@
     padding-bottom: pxToRem(12);
     border-bottom: pxToRem(1) solid $Neutral-4;
 }
+
+.select-brand-status{
+    width: pxToRem(131);
+
+    & .ant-select-selector{
+        background: $dark-1 !important;
+        border-radius: pxToRem(48) !important;
+    }
+}

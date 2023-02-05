@@ -16,6 +16,7 @@ export interface IFilterTable {
     page?: string
     limit?: string
     search?: string
+    status?: number
 }
 
 export interface IRequestCardBrandItem{

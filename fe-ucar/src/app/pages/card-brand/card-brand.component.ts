@@ -4,40 +4,22 @@ import { PathRouter } from '@app/core/contants';
 import { formatRouterLink } from '@app/core/helper';
 import { ICommonSelect, IFilterTable, ITableCardBrandItem } from '@app/core/models';
 import { CardBrandService } from '@app/core/services';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-card-brand',
   templateUrl: './card-brand.component.html',
   styleUrls: ['./card-brand.component.scss']
 })
 export class CardBrandComponent implements OnInit {
-  public selectFilterCardBrand = 'all'
+  public selectFilterCardBrandStatus$ = new BehaviorSubject<ICommonSelect>({label: "All", value: -1})
   public isModalCreateBrand: boolean = false
   public setOfCheckedId = new Set<number>();
-
+  public filterStatusSelect: Array<ICommonSelect> = []
+  
   constructor(
     private _cardBrandService: CardBrandService,
     private route: Router
   ){}
-
-  public filterCardBrand: Array<ICommonSelect> = [
-    {
-      label: 'All',
-      value: 'all'
-    },
-    {
-      label: 'Last Updated',
-      value: 'last_updated'
-    },
-    {
-      label: 'Brand Name',
-      value: 'brand_name'
-    },
-    {
-      label: 'Number of Models',
-      value: 'number_of_models'
-    }
-  ]
 
   public dataTable: Array<ITableCardBrandItem> = []
   public filterTable:IFilterTable = {
@@ -45,11 +27,10 @@ export class CardBrandComponent implements OnInit {
     page: '1'
   }
 
-
   ngOnInit(): void {
     this.fetchApiGetAll(this.filterTable)
+    this.filterStatusSelect = this._cardBrandService.optionFilterCardBrand
   }
-
 
   private fetchApiGetAll(filter: IFilterTable){
     this._cardBrandService.getAll(filter).subscribe(data => this.dataTable = data.data.items.map((e: ITableCardBrandItem) => {
@@ -99,6 +80,17 @@ export class CardBrandComponent implements OnInit {
       ...this.filterTable,
       page: event.toString()
     }
+  }
+
+  public changeFilterStatus(event: ICommonSelect){
+    this.fetchApiGetAll({
+      ...this.filterTable,
+      search: undefined,
+      status: +event.value,
+      page: '1',
+      limit: '10'
+    })
+    this.selectFilterCardBrandStatus$.next(event)
   }
 
   public setIsModalCreateBrand(isReload?: boolean){
