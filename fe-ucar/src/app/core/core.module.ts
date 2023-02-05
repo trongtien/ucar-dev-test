@@ -10,13 +10,15 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ToggleLayoutComponent } from './components/toggle-layout/toggle-layout.component';
 import { CommonService, LayoutService, ResizeService } from './services';
 import { HttpClientModule } from '@angular/common/http';
+import { transformDate } from './pipe';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     HeaderComponent,
     SidebarComponent,
-    ToggleLayoutComponent
+    ToggleLayoutComponent,
+    transformDate
   ],
   imports: [
     NgZorroModule,

@@ -1,6 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.api_route import router
 from app.core.exception_handler import CustomException, exception_handler
@@ -16,13 +16,23 @@ app = FastAPI(
         openapi_url=f"{default_app_setting.API_PREFIX}/openapi.json",
         description=''
 )
+
+origins = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-     allow_origins=[str(origin) for origin in default_app_setting.BACKEND_CORS_ORIGINS],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=['*'],
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 
 app.include_router(router, prefix=default_app_setting.API_PREFIX)

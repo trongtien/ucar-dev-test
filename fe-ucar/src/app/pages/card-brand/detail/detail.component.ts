@@ -4,6 +4,7 @@ import { ICommonSelect } from '@app/core/models';
 import { CardBrandService, UploadFileService } from '@app/core/services';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Location } from '@angular/common';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -14,6 +15,8 @@ export class DetailComponent implements OnInit {
   public formDetail!: UntypedFormGroup;
   public isUpdate: boolean = false;
   public optionBrandStatus: Array<ICommonSelect> = []
+  
+  private idParam!: string 
 
   // Upload file
   public avatarUrl?: string;
@@ -31,7 +34,8 @@ export class DetailComponent implements OnInit {
     private _formModal: UntypedFormBuilder,
     private _uploadFileService: UploadFileService,
     private _cardBrandService: CardBrandService,
-    private _location: Location
+    private _location: Location,
+    private _router: ActivatedRoute
   ) { }
 
 
@@ -39,6 +43,21 @@ export class DetailComponent implements OnInit {
   public ngOnInit(): void {
     this.optionBrandStatus = this._cardBrandService.optionBrandStatus
     this.formDetail = this._formModal.group(this.initDataForm)
+    this._router.paramMap.subscribe((params: ParamMap | null) => {
+      const id = params?.get('id')
+      if(id){
+        this.idParam = id
+        this._cardBrandService.finbdById(id).subscribe(response => {
+          const item = response.data
+          this.formDetail.setValue({
+            brand_name: item.name,
+            brand_status: this._cardBrandService.optionBrandStatus.find(e => e.value === item.status),
+            brand_description: item.description
+          })
+        })
+      }
+    });
+   
   }
 
   public setIsUpdate(){
@@ -50,8 +69,27 @@ export class DetailComponent implements OnInit {
   }
 
   public submitForm(): void {
-
-
+    if(!this.idParam) return 
+    if (this.formDetail.valid) {
+      const valueForm = this.formDetail.value
+      this._cardBrandService.update(this.idParam,{
+        description: valueForm.brand_description,
+        logo: null,
+        name: valueForm.brand_name,
+        status: valueForm.brand_status.value
+      }).subscribe((response: any) => {
+        if(response.code = 1){
+          this.setIsUpdate()
+        }
+      });
+    } else {
+      Object.values(this.formDetail.controls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+      });
+    }
   }
 
   public handleChangeFile(info: { file: NzUploadFile }): void {
@@ -59,22 +97,5 @@ export class DetailComponent implements OnInit {
       this.loadingUploadFile = false;
       this.avatarUrl = img;
     });
-    // console.log('info_handleChangeFile', info.file)
-    // switch (info.file.status) {
-    //   case 'uploading':
-    //     this.loadingUploadFile = true;
-    //     break;
-        
-    //   case 'done':
-    //     this._uploadFileService.getBase64(info.file!.originFileObj!, (img: string) => {
-    //       this.loadingUploadFile = false;
-    //       this.avatarUrl = img;
-    //     });
-    //     break;
-
-    //   case 'error':
-    //     this.loadingUploadFile = false;
-    //     break;
-    // }
   }
 }

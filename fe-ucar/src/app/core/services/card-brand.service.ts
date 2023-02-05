@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { ICommonSelect, IRequestCardBrandItem } from "../models";
-import { HttpClient } from "@angular/common/http";
+import { ICommonSelect, IRequestCardBrandItem, ITableCardBrandItem } from "../models";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "@environments/environment";
 
@@ -9,7 +9,7 @@ import { environment } from "@environments/environment";
 })
 export class CardBrandService{
 
-  private pathApi = 'card-brand/'
+  private pathApi = 'card-brand'
 
   public optionBrandStatus: Array<ICommonSelect> = [
       {
@@ -24,9 +24,13 @@ export class CardBrandService{
 
   constructor(private _httpClient: HttpClient){}
 
-  public getAll():Observable<any[]>{
+  public getAll():Observable<any>{
     const url = `${environment.apiUrl}${environment.apiVersion1}${this.pathApi}`
-    return this._httpClient.get<any[]>(url)
+    const params = new HttpParams()
+      .set('page', '1')
+      .set('limit', "10");
+
+    return this._httpClient.get<Array<ITableCardBrandItem>>(url, {params})
   }
 
   public finbdById(id: string):Observable<any>{

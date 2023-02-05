@@ -2,7 +2,8 @@ import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { ICommonSelect } from '@app/core/models';
+import { ICommonSelect, IRequestCardBrandItem } from '@app/core/models';
+import { CardBrandService } from '@app/core/services';
 @Component({
   selector: 'app-modal-cu-card-brand',
   templateUrl: './modal-cu-card-brand.component.html',
@@ -27,7 +28,7 @@ export class ModalCuCardBrandComponent implements OnInit {
     brand_description: [null]
   }
 
-  constructor(private formModal: UntypedFormBuilder) { }
+  constructor(private formModal: UntypedFormBuilder, private _cardBrandService: CardBrandService) { }
 
   public optionBrandStatus: Array<ICommonSelect> = [
     {
@@ -42,14 +43,19 @@ export class ModalCuCardBrandComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.formModal.group(this.initDataForm)
+
   }
 
   public handleCancel() {
     this.handleCloseModal()
   }
 
-  public handleCloseModal(): void {
-    this.closeModal.emit(!this.isVisible)
+  public handleCloseModal(isReload?: boolean): void {
+    if(isReload){
+      this.closeModal.emit(false)
+    } else {
+      this.closeModal.emit(true)
+    }
     this.validateForm.reset();
   }
 
@@ -81,7 +87,17 @@ export class ModalCuCardBrandComponent implements OnInit {
 
   submitForm(): void {
     if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
+      const valueForm = this.validateForm.value
+      this._cardBrandService.create({
+        description: valueForm.brand_description,
+        logo: null,
+        name: valueForm.brand_name,
+        status: valueForm.brand_status.value
+      }).subscribe((response: any) => {
+        if(response.code = 1){
+          this.handleCloseModal()
+        }
+      });
     } else {
       Object.values(this.validateForm.controls).forEach(control => {
         if (control.invalid) {

@@ -1,19 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PathRouter } from '@app/core/contants';
 import { formatRouterLink } from '@app/core/helper';
 import { ICommonSelect, ITableCardBrandItem } from '@app/core/models';
-
+import { CardBrandService } from '@app/core/services';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-card-brand',
   templateUrl: './card-brand.component.html',
   styleUrls: ['./card-brand.component.scss']
 })
-export class CardBrandComponent {
+export class CardBrandComponent implements OnInit {
   public selectFilterCardBrand = 'all'
   public isModalCreateBrand: boolean = false
 
-  constructor(private route: Router){}
+  constructor(
+    private _cardBrandService: CardBrandService,
+    private route: Router
+  ){}
 
   public filterCardBrand: Array<ICommonSelect> = [
     {
@@ -34,111 +38,33 @@ export class CardBrandComponent {
     }
   ]
 
-  public dataTable: Array<ITableCardBrandItem> = [
-    {
-      id: 1,
-      avatar: '/assets/images/avatar_item.svg',
-      name: 'Toyota',
-      description: 'Jeep Grand Cherokee',
-      number_model: 1200,
-      last_update: '25/12/2022',
-      status: 1,
-      checked: false,
-      expand: false
-    },
-    {
-      id: 2,
-      avatar: '/assets/images/avatar_item.svg',
-      name: 'Toyota',
-      description: 'Jeep Grand Cherokee',
-      number_model: 1200,
-      last_update: '25/12/2022',
-      status: 2,
-      checked: false,
-      expand: false
-    },
-    {
-      id: 3,
-      avatar: '/assets/images/avatar_item.svg',
-      name: 'Toyota',
-      description: 'Jeep Grand Cherokee Jeep Grand Cherokee Jeep Grand Cherokee',
-      number_model: 1200,
-      last_update: '25/12/2022',
-      status: 2,
-      checked: false,
-      expand: false
-    },
-    {
-      id: 4,
-      avatar: '/assets/images/avatar_item.svg',
-      name: 'Toyota',
-      description: 'Jeep Grand Cherokee',
-      number_model: 1200,
-      last_update: '25/12/2022',
-      status: 1,
-      checked: false,
-      expand: false
-    },
-    {
-      id: 5,
-      avatar: '/assets/images/avatar_item.svg',
-      name: 'Toyota',
-      description: 'Jeep Grand Cherokee',
-      number_model: 1200,
-      last_update: '25/12/2022',
-      status: 1,
-      checked: false,
-      expand: false
-    },
-    {
-      id: 6,
-      avatar: '/assets/images/avatar_item.svg',
-      name: 'Toyota',
-      description: 'Jeep Grand Cherokee',
-      number_model: 1200,
-      last_update: '25/12/2022',
-      status: 1,
-      checked: false,
-      expand: false
-    },
-    {
-      id: 7,
-      avatar: '/assets/images/avatar_item.svg',
-      name: 'Toyota',
-      description: 'Jeep Grand Cherokee',
-      number_model: 1200,
-      last_update: '25/12/2022',
-      status: 1,
-      checked: false,
-      expand: false
-    },
-    {
-      id: 8,
-      avatar: '/assets/images/avatar_item.svg',
-      name: 'Toyota',
-      description: 'Jeep Grand Cherokee',
-      number_model: 1200,
-      last_update: '25/12/2022',
-      status: 1,
-      checked: false,
-      expand: false
-    },
-    {
-      id: 9,
-      avatar: '/assets/images/avatar_item.svg',
-      name: 'Toyota',
-      description: 'Jeep Grand Cherokee',
-      number_model: 1200,
-      last_update: '25/12/2022',
-      status: 1,
-      checked: false,
-      expand: false
-    }
-  ]
+  public dataTable: Array<ITableCardBrandItem> = []
 
-  public setIsModalCreateBrand(){
-    console.log('setIsModalCreateBrand')
+
+  ngOnInit(): void {
+    this.fetchApiGetAll()
+  }
+
+
+  private fetchApiGetAll(){
+    this._cardBrandService.getAll().subscribe(data => this.dataTable = data.data.items.map((e: ITableCardBrandItem) => {
+      return {
+        ...e,
+        checked: false, 
+        expand: false, 
+        logo: e.logo === null ? '' : e.logo,
+        number_model: 0,
+        last_update: e.updated_at === null ? e.created_at : e.updated_at,
+        description: e.description === null ? '' : e.description
+      }
+    }))
+  }
+
+  public setIsModalCreateBrand(isReload?: boolean){
     this.isModalCreateBrand = !this.isModalCreateBrand
+    if(isReload){
+      this.fetchApiGetAll()
+    }
   }
 
   public onDetail(id: number){

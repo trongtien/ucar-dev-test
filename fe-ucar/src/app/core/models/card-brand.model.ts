@@ -1,19 +1,21 @@
 export interface ITableCardBrandItem {
     id: number;
-    avatar: string;
-    name: string;
-    description: string;
+    logo: string | null;
+    name: string ;
+    description: string | null;
     number_model: number;
     last_update: string;
     status: number;
     checked: boolean;
     expand: boolean;
+    updated_at: any;
+    created_at: any;
 }
 
 
 export interface IRequestCardBrandItem{
     name: string;
-    logo: string;
-    description: string;
+    logo: string | null;
+    description: string | null;
     status: number
 }

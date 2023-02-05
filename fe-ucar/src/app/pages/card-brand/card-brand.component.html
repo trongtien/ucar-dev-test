@@ -74,7 +74,7 @@
           <td [width]="'16%'">
             <div class="table-body-time">
               <p class="table-body-time_title">Last Update</p>
-              <p class="table-body-time_date">{{ item.last_update }}</p>
+              <p class="table-body-time_date">{{ item.last_update | date:'MM/dd/yyyy'}}</p>
             </div>
           </td>
           <td [width]="'20%'">
@@ -120,5 +120,5 @@
 
 <app-modal-cu-card-brand
   [isVisible]="isModalCreateBrand"
-  (closeModal)="setIsModalCreateBrand()"
+  (closeModal)="setIsModalCreateBrand($event)"
 ></app-modal-cu-card-brand>
