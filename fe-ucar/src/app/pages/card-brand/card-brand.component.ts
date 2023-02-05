@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PathRouter } from '@app/core/contants';
 import { formatRouterLink } from '@app/core/helper';
-import { ICommonSelect, ITableCardBrandItem } from '@app/core/models';
+import { ICommonSelect, IFilterTable, ITableCardBrandItem } from '@app/core/models';
 import { CardBrandService } from '@app/core/services';
 import { Observable } from 'rxjs';
 @Component({
@@ -39,15 +39,19 @@ export class CardBrandComponent implements OnInit {
   ]
 
   public dataTable: Array<ITableCardBrandItem> = []
-
-
-  ngOnInit(): void {
-    this.fetchApiGetAll()
+  public filterTable:IFilterTable = {
+    limit: '10',
+    page: '1'
   }
 
 
-  private fetchApiGetAll(){
-    this._cardBrandService.getAll().subscribe(data => this.dataTable = data.data.items.map((e: ITableCardBrandItem) => {
+  ngOnInit(): void {
+    this.fetchApiGetAll(this.filterTable)
+  }
+
+
+  private fetchApiGetAll(filter: IFilterTable){
+    this._cardBrandService.getAll(filter).subscribe(data => this.dataTable = data.data.items.map((e: ITableCardBrandItem) => {
       return {
         ...e,
         checked: false, 
@@ -60,10 +64,55 @@ export class CardBrandComponent implements OnInit {
     }))
   }
 
+  public changePageSize(event: number) {
+    this.fetchApiGetAll({
+      ...this.filterTable,
+      limit: event.toString()
+    })
+
+    this.filterTable = {
+      ...this.filterTable,
+      limit: event.toString()
+    }
+  }
+
+  public changePageIndex(event: number){
+    this.fetchApiGetAll({
+      ...this.filterTable,
+      page: event.toString()
+    })
+
+    this.filterTable = {
+      ...this.filterTable,
+      page: event.toString()
+    }
+  }
+
   public setIsModalCreateBrand(isReload?: boolean){
     this.isModalCreateBrand = !this.isModalCreateBrand
     if(isReload){
-      this.fetchApiGetAll()
+      this.fetchApiGetAll({
+        limit: '10',
+        page: '1'
+      })
+    }
+  }
+
+  public onChangeSearch($event: any ){
+    const valueSearch = $event.target.value
+
+    this.fetchApiGetAll({
+      ...this.filterTable,
+      search: valueSearch.length === 0 ? undefined : valueSearch,
+      page: '1',
+      limit: '10'
+    })
+
+    this.filterTable = {
+      ...this.filterTable,
+      search: valueSearch.length === 0 ? undefined : valueSearch,
+      page: '1',
+      limit: '10'
     }
   }
 

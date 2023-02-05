@@ -88,6 +88,7 @@ export class DetailComponent implements OnInit {
 
   public submitForm(): void {
     if(!this.idParam) return 
+    
     if (this.formDetail.valid) {
       const valueForm = this.formDetail.value
 

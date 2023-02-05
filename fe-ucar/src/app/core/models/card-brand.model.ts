@@ -12,6 +12,11 @@ export interface ITableCardBrandItem {
     created_at: any;
 }
 
+export interface IFilterTable {
+    page?: string
+    limit?: string
+    search?: string
+}
 
 export interface IRequestCardBrandItem{
     name: string;

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ICommonSelect, IRequestCardBrandItem, ITableCardBrandItem } from "../models";
+import { ICommonSelect, IFilterTable, IRequestCardBrandItem, ITableCardBrandItem } from "../models";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "@environments/environment";
@@ -24,12 +24,13 @@ export class CardBrandService{
 
   constructor(private _httpClient: HttpClient){}
 
-  public getAll():Observable<any>{
+  public getAll(filter: IFilterTable):Observable<any>{
     const url = `${environment.apiUrl}${environment.apiVersion1}${this.pathApi}`
     const params = new HttpParams()
-      .set('page', '1')
-      .set('limit', "10");
-
+      .set('page', filter.page ? filter.page.toString() : 1)
+      .set('limit', filter.limit ? filter.limit.toString() : 10)
+      .set('search_name', filter.search ? filter.search.trim().toLocaleLowerCase() : '');
+    
     return this._httpClient.get<Array<ITableCardBrandItem>>(url, {params})
   }
 

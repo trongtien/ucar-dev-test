@@ -17,7 +17,7 @@
       [nzPrefix]="suffixIconSearch"
       class="card-brand-header_left-search-filter"
     >
-      <input type="text" nz-input placeholder="input search text" />
+      <input type="text" nz-input placeholder="input search text" (change)="onChangeSearch($event)"/>
     </nz-input-group>
 
     <ng-template #suffixIconSearch>
@@ -45,7 +45,11 @@
     [nzData]="dataTable"
     [nzBordered]="false"
     [nzLoading]="false"
+    [nzPageSize]="filterTable.limit ? +filterTable.limit : 10"
+    [nzPageIndex]="filterTable.page ? +filterTable.page : 1"
     [nzScroll]="{ x: '150', y: '300' }"
+    (nzPageSizeChange)="changePageSize($event)"
+    (nzPageIndexChange)="changePageIndex($event)"
   >
     <tbody>
       <ng-container *ngFor="let item of cardBrandTable.data">
