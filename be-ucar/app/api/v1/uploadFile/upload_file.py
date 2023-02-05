@@ -1,6 +1,9 @@
 import logging
 import os
 import aiofiles
+from PIL import Image
+from io import BytesIO
+import base64
 from fastapi import APIRouter, status, File, UploadFile, HTTPException
 
 from app.core.schema_base import DataResponseBase
@@ -10,12 +13,13 @@ router = APIRouter()
 logger = logging.getLogger()
 
 BASEDIR = os.path.dirname(__file__)
+PATH_FILE = '/home/kelvin/Desktop/ucar-dev-test/be-ucar/app/public/'
 
 @router.post("",  status_code = status.HTTP_200_OK)
 async def create_upload_file(file: UploadFile):
     try:
         _, ext = os.path.splitext(file.filename)
-        img_dir = os.path.join(BASEDIR, '/home/kelvin/Desktop/ucar-dev-test/be-ucar/app/public/')
+        img_dir = os.path.join(BASEDIR, PATH_FILE)
         if not os.path.exists(img_dir):
             os.makedirs(img_dir)
         content = await file.read()
@@ -23,10 +27,27 @@ async def create_upload_file(file: UploadFile):
             return DataResponseBase(status_code=406, detail="Only .jpeg or .png  files allowed")
         
         format_file_name = file.filename.replace(' ', '_').lower().replace('-', '_')
-        print('format_file_name=======================================', format_file_name)
+      
         async with aiofiles.open(os.path.join(img_dir, format_file_name), mode='wb') as f:
             await f.write(content)
 
-        return DataResponseBase().success_response(data=None)
+        file_save_decode = await getFileBase64(format_file_name)
+   
+        return DataResponseBase().success_response(data=file_save_decode)
     except Exception as e:
         return DataResponseBase(status_code=400, detail=logger.error(e))
+
+
+@router.get("/{file_name}",  status_code = status.HTTP_200_OK)
+async def get_file_base_64(file_name: str):
+    try:
+        file_save_decode = await getFileBase64(file_name)
+        return DataResponseBase().success_response(data=file_save_decode)
+    except Exception as e:
+        return DataResponseBase(status_code=400, detail=logger.error(e))
+
+async def getFileBase64(file_name: str):
+    link_path_to_file = f'{PATH_FILE}{file_name}'
+    with open(link_path_to_file, "rb") as img_file:
+        b64_string = base64.b64encode(img_file.read())
+    return b64_string.decode('utf-8')
