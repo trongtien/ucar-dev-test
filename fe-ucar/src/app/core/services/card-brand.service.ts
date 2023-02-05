@@ -35,7 +35,7 @@ export class CardBrandService{
 
   public finbdById(id: string):Observable<any>{
     const url = `${environment.apiUrl}${environment.apiVersion1}${this.pathApi}/${id}`
-    return this._httpClient.get<any[]>(url)
+    return this._httpClient.get<any>(url)
   }
 
   public create(cardBrandbody: IRequestCardBrandItem):Observable<any>{
