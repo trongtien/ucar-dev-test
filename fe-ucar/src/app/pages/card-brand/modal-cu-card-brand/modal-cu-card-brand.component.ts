@@ -80,11 +80,13 @@ export class ModalCuCardBrandComponent implements OnInit {
   }
 
   public handleChangeFile(info: { file: NzUploadFile }): void {
+    console.log('info_handleChangeFile', info.file)
     if(info.file.originFileObj){
       this.fileUploadBase64 = info.file.originFileObj
     }
 
     this.getBase64(info.file!.originFileObj!, (img: string) => {
+      console.log('img', img)
       this.loadingUploadFile = false;
       this.avatarUrl = img;
     });

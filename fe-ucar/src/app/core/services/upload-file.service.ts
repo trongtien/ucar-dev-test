@@ -33,4 +33,9 @@ export class UploadFileService{
         return this._httpClient.get<any[]>(url)
     }
 
+    public convertBase64File(findName: string, base64: string){
+        const typeFile = findName.split('.').reverse()
+        return `data:image/${typeFile[0]};base64,${base64}`;
+    }
+
 }

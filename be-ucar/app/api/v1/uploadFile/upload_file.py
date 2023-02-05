@@ -52,4 +52,4 @@ async def getFileBase64(file_name: str):
     link_path_to_file = f'{PATH_FILE}{file_name}'
     with open(link_path_to_file, "rb") as img_file:
         b64_string = base64.b64encode(img_file.read())
-    return b64_string.decode('utf-8')
+    return b64_string
