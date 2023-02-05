@@ -1,17 +1,11 @@
 @import "src/assets/styles";
 
 :host {
-    display: flex;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
-  // nz-content {
-  //   margin: 24px;
-  // }
-  
- 
+  display: flex;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 .app-layout {
   height: 100vh;
@@ -31,7 +25,7 @@
       & .inner-content {
         padding: pxToRem(33) pxToRem(24) pxToRem(24) pxToRem(42);
         background: $Neutral-1;
-        height: auto;
+        height: 100%;
       }
     }
   }

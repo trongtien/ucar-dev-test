@@ -70,3 +70,8 @@
     font-family: $secondary-font;
     line-height: 0;
 }
+
+// Chekbox custom
+.ant-checkbox-inner{
+    border-radius: 50%;
+}

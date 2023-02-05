@@ -54,28 +54,53 @@
     <tbody>
       <ng-container *ngFor="let item of cardBrandTable.data">
         <tr>
+          <td
+            [width]="'5%'"
+            [nzChecked]="setOfCheckedId.has(item.id)"
+            (nzCheckedChange)="onItemChecked(item.id, $event)"
+          ></td>
           <td [width]="'10%'">
             <img
               class="table-body-image"
               src="/assets/images/avatar_item.svg"
             />
           </td>
-          <td [width]="'35%'">
+          <td [width]="'30%'">
             <div class="table-body-info-card">
               <p class="table-body-info-card_name">{{ item.name }}</p>
+              
               <p class="table-body-info-card_note">
-                <span
-                  class="table-body-info-card_description table-body-eclipse"
+                <ng-container
+                  class="table-body-status_name"
+                  *ngIf="item.description !== null && item.description.length > 0; else notExistDescription"
                 >
-                  {{ item.description }}
-                </span>
-                <span class="table-body-info-card_model-number">
-                  {{ item.number_model }} Models
-                </span>
+
+                  <ng-container
+                    *ngTemplateOutlet="existDescription"
+                  ></ng-container>
+
+                </ng-container>
+
+                <ng-template #notExistDescription>
+                  <span class="table-body-info-card_model-number not-exist-description">
+                    {{ item.number_model }} Models
+                  </span>
+                </ng-template>
+  
+                <ng-template #existDescription>
+                  <span
+                    class="table-body-info-card_description table-body-eclipse "
+                  >
+                    {{ item.description }}
+                  </span>
+                  <span class="table-body-info-card_model-number exist-description">
+                    {{ item.number_model }} Models
+                  </span>
+                </ng-template>
               </p>
             </div>
           </td>
-          <td [width]="'16%'">
+          <td [width]="'15%'">
             <div class="table-body-time">
               <p class="table-body-time_title">Last Update</p>
               <p class="table-body-time_date">{{ item.last_update | date:'MM/dd/yyyy'}}</p>

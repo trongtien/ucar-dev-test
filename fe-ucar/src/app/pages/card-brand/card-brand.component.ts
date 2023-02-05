@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 export class CardBrandComponent implements OnInit {
   public selectFilterCardBrand = 'all'
   public isModalCreateBrand: boolean = false
+  public setOfCheckedId = new Set<number>();
 
   constructor(
     private _cardBrandService: CardBrandService,
@@ -62,6 +63,18 @@ export class CardBrandComponent implements OnInit {
         description: e.description === null ? '' : e.description
       }
     }))
+  }
+
+  public updateCheckedSet(id: number, checked: boolean): void {
+    if (checked) {
+      this.setOfCheckedId.add(id);
+    } else {
+      this.setOfCheckedId.delete(id);
+    }
+  } 
+
+  public onItemChecked(id: number, checked: boolean): void {
+    this.updateCheckedSet(id, checked);
   }
 
   public changePageSize(event: number) {
