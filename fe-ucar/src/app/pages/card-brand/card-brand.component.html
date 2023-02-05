@@ -47,7 +47,7 @@
     [nzLoading]="false"
     [nzPageSize]="filterTable.limit ? +filterTable.limit : 10"
     [nzPageIndex]="filterTable.page ? +filterTable.page : 1"
-    [nzScroll]="{ x: '150', y: '300' }"
+    [nzScroll]="{ x: '150', y: '600' }"
     (nzPageSizeChange)="changePageSize($event)"
     (nzPageIndexChange)="changePageIndex($event)"
   >
@@ -65,8 +65,13 @@
               src="/assets/images/avatar_item.svg"
             />
           </td>
-          <td [width]="'30%'">
-            <div class="table-body-info-card">
+          <td [width]="'30%'" ngClass="td-info">
+            <div 
+              class="table-body-info-card " 
+              [ngClass]="item.status === 1
+                ? 'table-body-info-card-bd-active '
+                : 'table-body-info-card-bd-inactive'"
+              >
               <p class="table-body-info-card_name">{{ item.name }}</p>
               
               <p class="table-body-info-card_note">

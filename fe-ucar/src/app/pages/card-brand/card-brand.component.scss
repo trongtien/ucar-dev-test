@@ -63,6 +63,23 @@
 .card-brand-table {
     margin-top: pxToRem(29);
 
+    & ::-webkit-scrollbar {
+        width: pxToRem(8);
+    }
+
+    & ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 pxToRem(5) grey;
+        border-radius: pxToRem(8);
+    }
+
+    & ::-webkit-scrollbar-thumb {
+        background: grey;
+        border-radius: pxToRem(8);
+    }
+
+    & ::-webkit-scrollbar-thumb:hover {
+        background: grey; 
+    }
 
     & .ant-table-row {
         height: 100%;
@@ -84,45 +101,63 @@
             text-overflow: ellipsis;
         }
 
-        & .table-body-info-card {
-            & .table-body-info-card_name {
-                font-size: pxToRem(20);
-                font-weight: 500;
-                font-family: $secondary-font;
-                color: $primary-text;
-                margin-bottom: pxToRem(4);
+        & .td-info{
+
+            padding-left: 0;
+
+            
+            & .table-body-info-card-bd-active {
+                border-left: pxToRem(3) solid $Rectangle-1691;
+                padding-left: pxToRem(40);
             }
 
-            & .table-body-info-card_note {
-                display: flex;
-                margin-bottom: 0;
+            & .table-body-info-card-bd-inactive {
+                border-left: pxToRem(3) solid $Neutral-7;
+                padding-left: pxToRem(40);
+            }
 
-                & .table-body-info-card_description {
-                    max-width: pxToRem(175);
-                    font-family: $secondary-font;
-                    font-size: pxToRem(14);
-                    font-weight: 400;
-                    color: $Neutral-6;
-                    padding-right: pxToRem(16);
-                    border-right: 1px solid $Neutral-4;
-                }
-
-                & .table-body-info-card_model-number {
-                    font-family: $secondary-font;
-                    font-size: pxToRem(14);
+            & .table-body-info-card {
+                & .table-body-info-card_name {
+                    font-size: pxToRem(20);
                     font-weight: 500;
-                    color: $frame-2;
+                    font-family: $secondary-font;
+                    color: $primary-text;
+                    margin-bottom: pxToRem(4);
                 }
 
-                & .exist-description {
-                    padding-left: pxToRem(16);
-                }
-
-                & .not-exist-description{
-                    padding-left: pxToRem(0);
+                & .table-body-info-card_note {
+                    display: flex;
+                    margin-bottom: 0;
+    
+                    & .table-body-info-card_description {
+                        max-width: pxToRem(175);
+                        font-family: $secondary-font;
+                        font-size: pxToRem(14);
+                        font-weight: 400;
+                        color: $Neutral-6;
+                        padding-right: pxToRem(16);
+                        border-right: 1px solid $Neutral-4;
+                    }
+    
+                    & .table-body-info-card_model-number {
+                        font-family: $secondary-font;
+                        font-size: pxToRem(14);
+                        font-weight: 500;
+                        color: $frame-2;
+                    }
+    
+                    & .exist-description {
+                        padding-left: pxToRem(16);
+                    }
+    
+                    & .not-exist-description{
+                        padding-left: pxToRem(0);
+                    }
                 }
             }
         }
+
+        
 
         & .table-body-time {
             display: block;
