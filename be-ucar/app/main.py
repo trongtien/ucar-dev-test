@@ -4,8 +4,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.api_route import router
 from app.core.exception_handler import CustomException, exception_handler
-from app.config.db_pg import database
+from app.config.db_pg import database, engine, BasePG
 from app.config.setting import settings
+
+BasePG.metadata.create_all(bind=engine)
 
 default_app_setting = settings
 
@@ -26,13 +28,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=['*'],
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
 
 
 app.include_router(router, prefix=default_app_setting.API_PREFIX)
@@ -47,5 +42,5 @@ async def startup():
 async def shutdown():
     await database.disconnect()
 
-if __name__ == '__main__':
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="info")

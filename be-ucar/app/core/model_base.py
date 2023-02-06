@@ -14,7 +14,7 @@ class Base:
         return cls.__name__.lower()
 
 @as_declarative()
-class ModalBase(Base):
+class ModalBase(Base, BasePG):
     __abstract__ = True
 
     id = Column(Integer, primary_key=True, autoincrement=True)
