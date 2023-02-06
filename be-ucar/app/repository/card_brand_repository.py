@@ -1,24 +1,30 @@
 from sqlalchemy.orm import Session
 from app.models.card_brand import CardBrand
-
+from sqlalchemy import select
 from app.api.v1.cardBrand.schema import CardBrandItemRequest
-
+from typing import Optional
 
 class CardBrandRepository:
 
     @staticmethod
-    async def selectAll(db: Session, skip: int, limit: int, search_name: str, status: int):
+    async def selectAll(db: Session, skip: int, limit: int, search_name: Optional[str] = None, status: Optional[int] = None):
         offset = limit * skip
-        isAllStatus = int(status) != -1
-        search = "%{}%".format(search_name)
+        search = "%{}%".format(search_name.lower())
+        
+        global list_data_engine
 
-        if(isAllStatus):
-            return db.query(CardBrand).filter(CardBrand.status == status).offset(offset).limit(limit).all()
-        elif(len(search_name) or search_name is not None):
-            return db.query(CardBrand).filter(CardBrand.name.like(search)).offset(offset).limit(limit).all()
-        else:
-            return db.query(CardBrand).offset(offset).limit(limit).all()
+        list_data_engine = select(CardBrand)
 
+        if hasattr(CardBrand, 'status') and status is not None: 
+            list_data_engine = list_data_engine.filter(CardBrand.status == status)
+
+        if hasattr(CardBrand, 'name') and search_name is not None and len(search_name) > 0: 
+            list_data_engine = list_data_engine.filter(CardBrand.name.lower().like(search))
+
+        if hasattr(CardBrand, 'status') and status is not None:
+            list_data_engine = list_data_engine.filter(CardBrand.status == status)
+
+        return db.execute(list_data_engine.offset(offset).limit(limit)).scalars().all()
 
     @staticmethod
     async def countItem(db: Session):

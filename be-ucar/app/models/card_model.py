@@ -12,8 +12,10 @@ class CardModel(ModalBase):
     description = Column(String, default=None, nullable=True)
     status = Column(Integer, nullable=True, index=True)
     is_delete = Column(Boolean, nullable = False, index=True)
-    # card_brand_id = Column(Integer, ForeignKey('CardBrand.id'), nullable=False, index=True)
-    card_brand_id = Column(Integer, nullable=False, index=True)
+    card_brand_id = Column(Integer, ForeignKey('card_brand.id'))
+    # card_brand_id = Column(Integer, nullable=False, index=True)
 
-    # owner_card_brand = relationship("CardBrand", back_populates="card_model")
+    card_brand_owner = relationship("CardBrand", back_populates="item_card_models")
+    # owner = relationship("CardBrand", back_populates="items")
+    # owner_card_brand = relationship("CardBrand", back_populates="card_models")
 

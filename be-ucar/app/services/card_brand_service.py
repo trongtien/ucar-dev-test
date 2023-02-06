@@ -10,7 +10,9 @@ class CardBrandService(ServiceBase, CardBrandRepository):
         super().__init__()
 
     async def getAll(seft, db: Session, skip: int, limit: int, search_name = str, status = int):
-        queryCardBrands = await seft.selectAll(db, skip=seft.defaul_skip_query(skip),limit=limit, search_name=search_name, status=status)
+        status_query = None if int(status) < 0 else status
+
+        queryCardBrands = await seft.selectAll(db, skip=seft.defaul_skip_query(skip),limit=limit, search_name=search_name, status=status_query)
         countCardBrand = await seft.countItem(db)
         return seft.response_list(data=queryCardBrands, limit=limit, page=skip, total_item=countCardBrand)
 

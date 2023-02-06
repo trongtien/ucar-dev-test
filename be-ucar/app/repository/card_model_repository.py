@@ -1,24 +1,29 @@
 from sqlalchemy.orm import Session
 from typing import Optional
 from app.models.card_model import CardModel
-
+from sqlalchemy import select
 from app.api.v1.cardModel.schema import CardModalItemRequest
 
 
 class CardModelRepository:
 
     @staticmethod
-    async def selectAll(db: Session, skip: int, limit: int, search_name: str, status: int, card_brand_id: Optional[int] = None):
-        offset = limit * skip
-        isAllStatus = int(status) != -1
-        search = "%{}%".format(search_name)
+    async def selectAll(db: Session, skip: int, limit: int, search_name: Optional[str] = None, status: Optional[int] = None, card_brand_id: Optional[int] = None):
 
-        if(isAllStatus):
-            return db.query(CardModel).filter(CardModel.status == status).offset(offset).limit(limit).all()
-        elif(len(search_name) or search_name is not None):
-            return db.query(CardModel).filter(CardModel.name.like(search)).offset(offset).limit(limit).all()
-        else:
-            return db.query(CardModel).offset(offset).limit(limit).all()
+        offset = limit * skip
+        search = "%{}%".format(search_name.lower())
+
+        list_data_engine - select(CardModel)
+        if hasattr(CardModel, 'name') and search_name is not None and len(search_name) > 0: 
+            list_data_engine = list_data_engine.filter(CardModel.name.lower().like(search))
+
+        if hasattr(CardModel, "card_brand_id") and card_brand_id is not None:
+            list_data_engine = list_data_engine.filter(CardModel.card_brand_id == card_brand_id)
+        
+        if hasattr(CardModel, 'status') and status is not None:
+            list_data_engine = list_data_engine.filter(CardModel.status == status)
+
+        return db.execute(list_data_engine).scalars().offset(offset).limit(limit).all()
 
 
     @staticmethod

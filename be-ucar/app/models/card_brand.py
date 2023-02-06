@@ -13,6 +13,8 @@ class CardBrand(ModalBase):
     status = Column(Integer, index=True)
     is_delete = Column(Boolean, index=True)
 
+    item_card_models = relationship("CardModel", back_populates="card_brand_owner")
+
     # card_models = relationship("CardModel", back_populates="owner_card_brand", cascade="all, delete-orphan")
 
 

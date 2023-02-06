@@ -13,12 +13,14 @@ class CardModelService(ServiceBase, CardModelRepository):
         super().__init__()
 
     async def getAll(seft, db: Session, skip: int, limit: int, search_name = str, status = int, card_brand_id: Optional[int] = None):
+        status_query = None if int(status) < 0 else status
+        
         queryCardModels = await seft.selectAll(
             db, 
             skip=seft.defaul_skip_query(skip),
             limit=limit,
             search_name=search_name, 
-            status=status, 
+            status=status_query, 
             card_brand_id=card_brand_id
         )
         countCardModel = await seft.countItem(db)
