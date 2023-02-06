@@ -1,16 +1,55 @@
 <nz-layout class="app-layout">
-  <!--  -->
   <nz-sider
     class="menu-sidebar"
     nzCollapsible
     nzWidth="256px"
     nzBreakpoint="lg"
-    [nzCollapsedWidth]="isResize ? 0 : 50"
+    [nzCollapsedWidth]="isResize ? 0 : 60"
     [(nzCollapsed)]="isCollapsed"
     [nzTrigger]="null"
   >
-    <app-component-sidebar></app-component-sidebar>
+    <div class="sidebar-logo">
+      <a
+        routerLink="/"
+        target="_parent"
+        [class]="isCollapsed ? 'logo-none-active' : 'logo-active'"
+      >
+        <img src="/assets/images/logo.svg" alt="logo" />
+      </a>
+
+      <app-toggle-layout></app-toggle-layout>
+    </div>
+
+    <ul nz-menu nzMode="inline" class="sidebar-list-menu_bg sidebar-list-menu">
+      <li
+        nz-menu-item
+        nz-tooltip
+        class="sidebar-list-menu_bg sidebar-list-menu_item"
+        routerLinkActive="sidebar-active"
+      >
+        <span nz-icon  nzTheme="outline">
+          <img src="/assets/images/clarity_car-line.svg" />
+        </span>
+        <span class="sidebar-list-menu_item-text" routerLink="/card-brand">
+          Car Brand
+        </span>
+      </li>
+      <li
+        nz-submenu
+        class="sidebar-list-menu_bg sidebar-list-menu_item"
+        nzMenuClassName="sidebar-list-menu_bg"
+        nzTitle="Navigation Two"
+        nzIcon="calendar"
+      >
+        <ul class="sidebar-list-menu_bg sidebar-list-menu_item-chidren">
+          <li nz-menu-item class="sidebar-list-menu_item-chidren-item">
+            <span class="sidebar-list-menu_item-text">Option 6</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </nz-sider>
+
   <nz-layout class="left-layout">
     <app-component-header></app-component-header>
     <nz-content class="left-layout_content">

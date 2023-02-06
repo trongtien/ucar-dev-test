@@ -1,5 +1,9 @@
 <div
-  class="header-trigger icon-collapse-side-bar"
+  [class]="
+    isCollapsed
+      ? 'header-trigger icon-collapse-side-bar icon-collapse-side-bar-mt-none-active'
+      : 'header-trigger icon-collapse-side-bar icon-collapse-side-bar-mt-active'
+  "
   (click)="changeToggleLayout()"
 >
   <span
