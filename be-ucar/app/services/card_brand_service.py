@@ -23,7 +23,7 @@ class CardBrandService(ServiceBase, CardBrandRepository):
                 register_card_brand = await seft.insert(db=db, data=card_brand_create)
                 return seft.response(data=register_card_brand)
             except Exception as e:
-                raise seft.response(status=500, data=None, code=False, msg=str(e))
+                return seft.response(status=500, data=None, code=False, msg=str(e))
         else:
             return seft.response(status=400, data=None, code=False, msg='Name exists')
 
@@ -46,6 +46,6 @@ class CardBrandService(ServiceBase, CardBrandRepository):
                 updated_card_brand = await seft.update(db=db, current_card_brand=exist_card_brand, card_brand_update=card_brand_update)
                 return  seft.response(data=updated_card_brand)
             except Exception as e:
-                raise seft.response(status=500, data=None, code=False, msg=str(e))
+                return seft.response(status=500, data=None, code=False, msg=str(e))
         
            

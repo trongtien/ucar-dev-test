@@ -11,7 +11,7 @@ class CardBrandRepository:
         offset = limit * skip
         isAllStatus = int(status) != -1
         search = "%{}%".format(search_name)
-        print ('isAllStatus', isAllStatus)
+
         if(isAllStatus):
             return db.query(CardBrand).filter(CardBrand.status == status).offset(offset).limit(limit).all()
         elif(len(search_name) or search_name is not None):
@@ -48,7 +48,7 @@ class CardBrandRepository:
 
     @staticmethod
     async def findCardById(db: Session, id: int):
-        print('')
+        print('findCardById', id)
         return db.query(CardBrand).get(id)
 
 

@@ -41,6 +41,12 @@ class DataResponseBase(ResponseSchemaBase, GenericModel, Generic[T]):
         self.data = data
         return self
 
+    def err_response(self, code: str, message: str):
+        self.code = code
+        self.message = message
+        self.data = None
+        return self
+
     def success_response(self, data: T):
         self.code = '1'
         self.message = 'Thành công'

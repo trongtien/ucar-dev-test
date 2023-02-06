@@ -1,4 +1,5 @@
 from datetime import datetime
+from sqlalchemy.sql import func
 from sqlalchemy import Column, Integer, DateTime, String
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
 
@@ -18,9 +19,9 @@ class ModalBase(Base, BasePG):
     __abstract__ = True
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    created_at = Column(DateTime, default=datetime.now)
-    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
-    deleted_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    created_at = Column(DateTime(timezone=True), default=func.now())
+    updated_at = Column(DateTime(timezone=True), default=func.now(), onupdate=func.now())
+    deleted_at = Column(DateTime(timezone=True), default=func.now(), onupdate=func.now())
     created_by = Column(String, default=None)
     updated_by = Column(String, default=None)
     deleted_by = Column(String, default=None)
