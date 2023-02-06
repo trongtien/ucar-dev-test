@@ -78,7 +78,11 @@ class CardModelService(ServiceBase, CardModelRepository):
             if exist_name is not None:
                 return seft.response(status=400, data=None, code=False, msg='Name card model exists')
         
-        updated_card_brand = await seft.update(db=db, current_card_model=exist_card_model, card_model_update=card_model_update)
+        updated_card_brand = await seft.update(
+            db=db, 
+            current_card_model=exist_card_model, 
+            card_model_update=card_model_update
+        )
 
         if exist_card_brand_new is not None:
             increase_total_modal = int(exist_card_brand.total_card_model) + 1

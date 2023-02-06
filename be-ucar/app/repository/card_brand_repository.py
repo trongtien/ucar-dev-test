@@ -63,6 +63,15 @@ class CardBrandRepository:
         return current_card_brand
 
     @staticmethod
+    async def update_is_delete(db: Session, current_card_brand: CardBrand):
+        current_card_brand.is_delete = True
+        current_card_brand.deleted_by = 'root'
+
+        db.commit()
+        db.refresh(current_card_brand)
+        return current_card_brand
+
+    @staticmethod
     async def update(db: Session, current_card_brand: CardBrand, card_brand_update: CardBrandItemRequest):
         current_card_brand.name = card_brand_update.name
         current_card_brand.description = card_brand_update.description

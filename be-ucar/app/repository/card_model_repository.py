@@ -58,6 +58,14 @@ class CardModelRepository:
     async def findCardById(db: Session, id: int):
         return db.query(CardModel).get(id)
 
+    @staticmethod
+    async def find_first_by_card_brand(db: Session, card_brand_id: int):
+        return db.query(CardModel).filter(CardModel.card_brand_id == card_brand_id).first()
+
+    @staticmethod
+    async def find_card_modal_by_card_brand(db: Session, card_brand_id: int):
+        return db.query(CardModel).filter(CardModel.card_brand_id == card_brand_id)
+
 
     @staticmethod
     async def update(db: Session, current_card_model: CardModel, card_model_update: CardModalItemRequest):

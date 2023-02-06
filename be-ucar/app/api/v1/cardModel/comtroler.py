@@ -32,7 +32,6 @@ async def create(data: CardModalItemRequest, db: Session = Depends(get_db_pg)):
         if create_item.get('code') is not True:
             return DataResponseBase().err_response(code=create_item.get('status'), message=create_item.get('msg'))
            
-        # print('create_item', json.loads(create_item.get('data')))
         return DataResponseBase().success_response(data=create_item.get('data'))
     except Exception as e:
         return DataResponseBase().err_response(code=400, message=str(logger.error(e)))

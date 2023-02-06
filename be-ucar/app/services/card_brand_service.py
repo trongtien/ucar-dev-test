@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 
 from app.repository.card_brand_repository import CardBrandRepository
+from app.repository.card_model_repository import CardModelRepository
 from app.api.v1.cardBrand.schema import CardBrandItemRequest
 from app.services.service_base import ServiceBase
 
@@ -50,4 +51,20 @@ class CardBrandService(ServiceBase, CardBrandRepository):
             except Exception as e:
                 return seft.response(status=500, data=None, code=False, msg=str(e))
         
-           
+    
+    async def delete(seft, db: Session,  id: int):
+        exist_card_brand = await seft.findCardById(db=db, id=id)
+        print('exist_card_brand', exist_card_brand)
+        if exist_card_brand is None:
+            return seft.response(status=400, data=None, code=False, msg='Id card brand already exists')
+        
+
+        print(1111)
+        exist_use_card_modal = await CardModelRepository().find_first_by_card_brand(db=db, card_brand_id=id)
+        print('============================', exist_use_card_modal)
+        if exist_use_card_modal is not None:
+            return seft.response(status=400, data=None, code=False, msg='Id card brand use in card model')
+        
+     
+        updated_card_brand = await seft.update_is_delete(db=db, current_card_brand=exist_card_brand)
+        return  seft.response(data=updated_card_brand)
