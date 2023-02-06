@@ -2,7 +2,7 @@ from fastapi import Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 
-from app.core.schema_base import ResponseSchemaBase
+from app.api.base.schema_base import ResponseSchemaBase
 
 
 class CustomException(Exception):

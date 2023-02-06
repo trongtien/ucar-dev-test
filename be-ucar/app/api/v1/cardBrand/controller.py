@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from fastapi import APIRouter, status, HTTPException, Depends
 from typing import Optional
 
-from app.core.schema_base import DataResponseBase
+from app.api.base.schema_base import DataResponseBase
 from app.api.v1.cardBrand.schema import CardBrandItemRequest
 from app.services.card_brand_service import CardBrandService
 

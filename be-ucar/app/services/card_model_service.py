@@ -4,7 +4,7 @@ from typing import Optional
 from app.repository.card_model_repository import CardModelRepository
 from app.repository.card_brand_repository import CardBrandRepository
 from app.api.v1.cardModel.schema import CardModalItemRequest
-from app.core.service_base import ServiceBase
+from app.services.service_base import ServiceBase
 
 
 class CardModelService(ServiceBase, CardModelRepository):

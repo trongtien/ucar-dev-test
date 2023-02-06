@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, Integer, Boolean
 from sqlalchemy.orm import relationship
 
-from app.core.model_base import ModalBase
+from app.models.model_base import ModalBase
 
 
 class CardBrand(ModalBase):
@@ -14,7 +14,5 @@ class CardBrand(ModalBase):
     is_delete = Column(Boolean, index=True)
 
     item_card_models = relationship("CardModel", back_populates="card_brand_owner")
-
-    # card_models = relationship("CardModel", back_populates="owner_card_brand", cascade="all, delete-orphan")
 
 

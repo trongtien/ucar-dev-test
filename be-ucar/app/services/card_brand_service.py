@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 
 from app.repository.card_brand_repository import CardBrandRepository
 from app.api.v1.cardBrand.schema import CardBrandItemRequest
-from app.core.service_base import ServiceBase
+from app.services.service_base import ServiceBase
 
 class CardBrandService(ServiceBase, CardBrandRepository):
 
