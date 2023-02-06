@@ -11,11 +11,11 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./card-brand.component.scss']
 })
 export class CardBrandComponent implements OnInit {
-  public selectFilterCardBrandStatus$ = new BehaviorSubject<ICommonSelect>({label: "All", value: -1})
+  public selectFilterCardBrandStatus: ICommonSelect = {label: "All", value: -1}
   public isModalCreateBrand: boolean = false
   public setOfCheckedId = new Set<number>();
   public filterStatusSelect: Array<ICommonSelect> = []
-  
+
   constructor(
     private _cardBrandService: CardBrandService,
     private route: Router
@@ -30,6 +30,8 @@ export class CardBrandComponent implements OnInit {
   ngOnInit(): void {
     this.fetchApiGetAll(this.filterTable)
     this.filterStatusSelect = this._cardBrandService.optionFilterCardBrand
+    
+    this.selectFilterCardBrandStatus = this._cardBrandService.optionFilterCardBrand[0]
   }
 
   private fetchApiGetAll(filter: IFilterTable){
@@ -90,7 +92,7 @@ export class CardBrandComponent implements OnInit {
       page: '1',
       limit: '10'
     })
-    this.selectFilterCardBrandStatus$.next(event)
+    this.selectFilterCardBrandStatus = event
   }
 
   public setIsModalCreateBrand(isReload?: boolean){
@@ -111,7 +113,7 @@ export class CardBrandComponent implements OnInit {
       search: valueSearch.length === 0 ? undefined : valueSearch,
       page: '1',
       limit: '10',
-      status: +this.selectFilterCardBrandStatus$.getValue().value
+      status: +this.selectFilterCardBrandStatus.value
     })
 
     this.filterTable = {
