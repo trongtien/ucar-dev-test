@@ -49,18 +49,22 @@ class CardModelService(ServiceBase, CardModelRepository):
 
     async def updateDetail(seft, db: Session, id: int, card_model_update: CardModalItemRequest):
         exist_card_model = await seft.findCardById(db=db, id=id)
-        print('exist_card_model', exist_card_model)
+
         if exist_card_model is None:
             return seft.response(status=400, data=None, code=False, msg='Id card brand already exists')
-
-        exist_card_brand = await CardBrandRepository().findCardById(db=db, id=card_model_update.card_brand_id)
-        if exist_card_brand is None and exist_card_model.card_brand_id != card_model_update.card_brand_id:
-            return seft.response(status=400, data=None, code=False, msg='Card brand id exists')
-
-        exist_name = await seft.findCardModelByName(db=db, name=card_model_update.name)
-        if exist_name is not None and exist_card_model.name != card_model_update.name:
-            return seft.response(status=400, data=None, code=False, msg='Name card model exists')
         
+        elif exist_card_model.card_brand_id != card_model_update.card_brand_id:
+            exist_card_brand = await CardBrandRepository().findCardById(db=db, id=card_model_update.card_brand_id)
+           
+            if exist_card_brand is None:
+                return seft.response(status=400, data=None, code=False, msg='Card brand id exists')
+       
+        elif exist_card_model.name != card_model_update.name:
+            exist_name = await seft.findCardModelByName(db=db, name=card_model_update.name)
+            
+            if exist_name is not None:
+                return seft.response(status=400, data=None, code=False, msg='Name card model exists')
+
         updated_card_brand = await seft.update(db=db, current_card_model=exist_card_model, card_model_update=card_model_update)
         return  seft.response(data=updated_card_brand)
         
