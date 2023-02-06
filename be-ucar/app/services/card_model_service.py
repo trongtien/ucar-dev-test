@@ -38,7 +38,17 @@ class CardModelService(ServiceBase, CardModelRepository):
         if exist_name is not None:
             return seft.response(status=400, data=None, code=False, msg='Name card model exists')
 
+
+        increase_total_modal = int(exist_card_brand.total_card_model) + 1
+        await CardBrandRepository.update_total_card_modal(
+            db=db,
+            current_card_brand=exist_card_brand, 
+            total_card_modal=increase_total_modal
+        )
+
         register_card_brand = await seft.insert(db=db, data=card_model_create)
+        
+
         return seft.response(data=register_card_brand)
 
     async def getDetail(seft, db: Session, id: int):
@@ -51,7 +61,7 @@ class CardModelService(ServiceBase, CardModelRepository):
 
     async def updateDetail(seft, db: Session, id: int, card_model_update: CardModalItemRequest):
         exist_card_model = await seft.findCardById(db=db, id=id)
-
+        exist_card_brand_new = None
         if exist_card_model is None:
             return seft.response(status=400, data=None, code=False, msg='Id card brand already exists')
         
@@ -60,14 +70,36 @@ class CardModelService(ServiceBase, CardModelRepository):
            
             if exist_card_brand is None:
                 return seft.response(status=400, data=None, code=False, msg='Card brand id exists')
+            exist_card_brand_new = exist_card_brand
        
         elif exist_card_model.name != card_model_update.name:
             exist_name = await seft.findCardModelByName(db=db, name=card_model_update.name)
             
             if exist_name is not None:
                 return seft.response(status=400, data=None, code=False, msg='Name card model exists')
-
+        
         updated_card_brand = await seft.update(db=db, current_card_model=exist_card_model, card_model_update=card_model_update)
+
+        if exist_card_brand_new is not None:
+            increase_total_modal = int(exist_card_brand.total_card_model) + 1
+            await CardBrandRepository.update_total_card_modal(
+                db=db,
+                current_card_brand=exist_card_brand, 
+                total_card_modal=increase_total_modal
+            )
+
+            exist_card_brand_curent = await CardBrandRepository().findCardById(
+                db=db, id=exist_card_model.card_brand_id
+            )            
+            recrease_total_modal = int(exist_card_model.total_card_model) - 1
+
+        await CardBrandRepository.update_total_card_modal(
+            db=db,
+            current_card_brand=exist_card_brand_curent, 
+            total_card_modal=recrease_total_modal
+        )
+
+       
         return  seft.response(data=updated_card_brand)
         
            

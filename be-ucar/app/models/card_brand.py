@@ -10,6 +10,7 @@ class CardBrand(ModalBase):
     name = Column(String(255), index=True, nullable=False)
     logo = Column(String(255), nullable=True)
     description = Column(String, nullable=False)
+    total_card_model = Column(Integer, default=0, nullable=True)
     status = Column(Integer, index=True)
     is_delete = Column(Boolean, index=True)
 

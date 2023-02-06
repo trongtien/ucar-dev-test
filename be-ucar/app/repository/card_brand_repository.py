@@ -11,20 +11,18 @@ class CardBrandRepository:
         offset = limit * skip
         search = "%{}%".format(search_name.lower())
         
-        global list_data_engine
-
-        list_data_engine = select(CardBrand)
+        list_data_engine_card_brand = select(CardBrand)
 
         if hasattr(CardBrand, 'status') and status is not None: 
-            list_data_engine = list_data_engine.filter(CardBrand.status == status)
+            list_data_engine_card_brand = list_data_engine_card_brand.filter(CardBrand.status == status)
 
         if hasattr(CardBrand, 'name') and search_name is not None and len(search_name) > 0: 
-            list_data_engine = list_data_engine.filter(CardBrand.name.lower().like(search))
+            list_data_engine_card_brand = list_data_engine_card_brand.filter(CardBrand.name.lower().like(search))
 
         if hasattr(CardBrand, 'status') and status is not None:
-            list_data_engine = list_data_engine.filter(CardBrand.status == status)
+            list_data_engine_card_brand = list_data_engine_card_brand.filter(CardBrand.status == status)
 
-        return db.execute(list_data_engine.offset(offset).limit(limit)).scalars().all()
+        return db.execute(list_data_engine_card_brand.offset(offset).limit(limit)).scalars().all()
 
     @staticmethod
     async def countItem(db: Session):
@@ -35,7 +33,6 @@ class CardBrandRepository:
     async def findCardByName(db: Session, name: str):
         return db.query(CardBrand).filter(CardBrand.name == name).first()
 
-
     @staticmethod
     async def insert(db: Session, data: CardBrandItemRequest):
         insert_card_brand = CardBrand(
@@ -44,7 +41,8 @@ class CardBrandRepository:
             description = data.description,
             status = data.status,
             is_delete = False,
-            created_by = 'root'
+            created_by = 'root',
+            total_card_model = 0
         )
         db.add(insert_card_brand)
         db.commit()
@@ -53,10 +51,16 @@ class CardBrandRepository:
 
 
     @staticmethod
-    async def findCardById(db: Session, id: int):
+    async def findCardById(db: Session, id: int) -> CardBrand:
         print('findCardById', id)
         return db.query(CardBrand).get(id)
 
+    @staticmethod
+    async def update_total_card_modal(db: Session, current_card_brand: CardBrand, total_card_modal: int):
+        current_card_brand.total_card_model = total_card_modal
+        db.commit()
+        db.refresh(current_card_brand)
+        return current_card_brand
 
     @staticmethod
     async def update(db: Session, current_card_brand: CardBrand, card_brand_update: CardBrandItemRequest):

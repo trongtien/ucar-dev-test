@@ -10,6 +10,7 @@ class CardModel(ModalBase):
     name = Column(String(255), index=True, nullable=False)
     avatar = Column(String(255), default=None, nullable=True, index=True)
     description = Column(String, default=None, nullable=True)
+   
     status = Column(Integer, nullable=True, index=True)
     is_delete = Column(Boolean, nullable = False, index=True)
     card_brand_id = Column(Integer, ForeignKey('card_brand.id'))

@@ -12,18 +12,20 @@ class CardModelRepository:
 
         offset = limit * skip
         search = "%{}%".format(search_name.lower())
+        
+        # global list_data_engine_card_modal
 
-        list_data_engine - select(CardModel)
+        list_data_engine_card_modal = select(CardModel)
         if hasattr(CardModel, 'name') and search_name is not None and len(search_name) > 0: 
-            list_data_engine = list_data_engine.filter(CardModel.name.lower().like(search))
+            list_data_engine_card_modal = list_data_engine_card_modal.filter(CardModel.name.lower().like(search))
 
         if hasattr(CardModel, "card_brand_id") and card_brand_id is not None:
-            list_data_engine = list_data_engine.filter(CardModel.card_brand_id == card_brand_id)
+            list_data_engine_card_modal = list_data_engine_card_modal.filter(CardModel.card_brand_id == card_brand_id)
         
         if hasattr(CardModel, 'status') and status is not None:
-            list_data_engine = list_data_engine.filter(CardModel.status == status)
+            list_data_engine_card_modal = list_data_engine_card_modal.filter(CardModel.status == status)
 
-        return db.execute(list_data_engine).scalars().offset(offset).limit(limit).all()
+        return db.execute(list_data_engine_card_modal.offset(offset).limit(limit)).scalars().all()
 
 
     @staticmethod

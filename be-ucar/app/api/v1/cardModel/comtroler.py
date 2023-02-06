@@ -3,6 +3,7 @@ from app.config.db_pg import get_db_pg
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, status, HTTPException, Depends
 from typing import Optional
+import json
 
 from app.api.base.schema_base import DataResponseBase
 from app.api.v1.cardModel.schema import CardModalItemRequest
@@ -31,6 +32,7 @@ async def create(data: CardModalItemRequest, db: Session = Depends(get_db_pg)):
         if create_item.get('code') is not True:
             return DataResponseBase().err_response(code=create_item.get('status'), message=create_item.get('msg'))
            
+        # print('create_item', json.loads(create_item.get('data')))
         return DataResponseBase().success_response(data=create_item.get('data'))
     except Exception as e:
         return DataResponseBase().err_response(code=400, message=str(logger.error(e)))
