@@ -92,18 +92,36 @@ class CardModelService(ServiceBase, CardModelRepository):
                 total_card_modal=increase_total_modal
             )
 
-            exist_card_brand_curent = await CardBrandRepository().findCardById(
+            exist_card_brand_current = await CardBrandRepository().findCardById(
                 db=db, id=exist_card_model.card_brand_id
-            )            
-            recrease_total_modal = int(exist_card_model.total_card_model) - 1
+            ) 
 
-        await CardBrandRepository.update_total_card_modal(
-            db=db,
-            current_card_brand=exist_card_brand_curent, 
-            total_card_modal=recrease_total_modal
-        )
+            decrease_total_modal = int(exist_card_model.total_card_model) - 1
+            await CardBrandRepository.update_total_card_modal(
+                db=db,
+                current_card_brand=exist_card_brand_current, 
+                total_card_modal=decrease_total_modal
+            )
 
        
         return  seft.response(data=updated_card_brand)
+
+
+    async def delete(seft, db: Session,  id: int):
+        exist_card_model = await seft.findCardById(db=db, id=id)
+        if exist_card_model is None:
+            return seft.response(status=400, data=None, code=False, msg='Id card model already exists')
+     
+        exist_card_brand = await CardBrandRepository().findCardById(db=db, id=exist_card_model.card_brand_id)
+        if exist_card_brand is not None:
+            decrease_total_modal = int(exist_card_brand.total_card_model) - 1
+            await CardBrandRepository.update_total_card_modal(
+                db=db,
+                current_card_brand=exist_card_brand, 
+                total_card_modal=decrease_total_modal
+            )
+
+        delete_card_model = await seft.update_is_delete(db=db, current_card_brand=exist_card_model)
+        return  seft.response(data=delete_card_model)
         
            
