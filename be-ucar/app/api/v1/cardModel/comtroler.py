@@ -3,8 +3,9 @@ from app.config.db_pg import get_db_pg
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, status, HTTPException, Depends
 from typing import Optional
+import json
 
-from app.core.schema_base import DataResponseBase
+from app.api.base.schema_base import DataResponseBase
 from app.api.v1.cardModel.schema import CardModalItemRequest
 from app.services.card_model_service import CardModelService
 

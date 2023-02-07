@@ -4,7 +4,7 @@ from typing import Optional
 from fastapi import status
 
 from app.repository.card_brand_repository import CardBrandRepository
-from app.core.schema_base import ReponseServiceSchemaBase
+from app.api.base.schema_base import ReponseServiceSchemaBase
 
 T = TypeVar("T")
 

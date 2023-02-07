@@ -5,7 +5,7 @@ import base64
 import uuid
 from fastapi import APIRouter, status, UploadFile
 
-from app.core.schema_base import DataResponseBase
+from app.api.base.schema_base import DataResponseBase
 
 
 router = APIRouter()

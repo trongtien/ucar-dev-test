@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.api_route import router
-from app.core.exception_handler import CustomException, exception_handler
+from app.api.base.exception_handler import CustomException, exception_handler
 from app.config.db_pg import database, engine, BasePG
 from app.config.setting import settings
 
