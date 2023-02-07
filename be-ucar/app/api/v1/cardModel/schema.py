@@ -5,9 +5,9 @@ from typing import Optional
 
 class CardModalItemBase(BaseModel):
     name: str
-    logo: str | None = None
-    description: str | None = None
-    status: int | None = None
+    logo: Optional[str]
+    description: Optional[str]
+    status: Optional[int]
     card_brand_id: int
     
     class Config:
@@ -17,16 +17,16 @@ class CardModalItemBase(BaseModel):
 class CardModalItemResponse(CardModalItemBase):
     id: int
     name: str
-    logo: str | None
-    description: str | None 
+    logo: Optional[str]
+    description: Optional[str] 
     is_delete: bool
-    total_card_modal:str | None
-    last_update: datetime | None
+    total_card_modal: Optional[str]
+    last_update: Optional[datetime]
 
 
 class CardModalItemRequest(CardModalItemBase):
     name: str
     card_brand_id: int
-    avatar: str | None = None
-    description: str | None = None
+    avatar: Optional[str]
+    description: Optional[str]
 

@@ -1,5 +1,11 @@
-FROM python:3.10.9
-WORKDIR /usr/src/personalised_nudges
-COPY ./app ./app
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+FROM python:3.11.1-slim
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .

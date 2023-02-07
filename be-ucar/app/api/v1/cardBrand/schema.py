@@ -5,8 +5,8 @@ from typing import Optional
 
 class CardBrandItemBase(BaseModel):
     name: str
-    logo: str | None = None
-    description: str | None = None
+    logo: Optional[str] = None
+    description: Optional[str] = None
     status: int
     
     class Config:
@@ -16,15 +16,15 @@ class CardBrandItemBase(BaseModel):
 class CardBrandItemResponse(CardBrandItemBase):
     id: int
     name: str
-    logo: str | None
-    description: str | None 
+    logo: Optional[str]
+    description: Optional[str] 
     is_delete: bool
-    total_card_modal:str | None
-    last_update: datetime | None
+    total_card_modal:Optional[str]
+    last_update: Optional[datetime]
 
 
 class CardBrandItemRequest(CardBrandItemBase):
     name: str
-    logo: str | None = None
-    description: str | None = None
+    logo: Optional[str]
+    description: Optional[str]
 
