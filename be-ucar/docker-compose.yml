@@ -9,13 +9,13 @@ services:
       - postgres_data:/var/lib/postgresql/data/
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     expose:
-      - "5432"
+      - "5500"
     networks:
       - default
     ports:
-      - 5432:5432
+      - '5432:5432'
     environment:
-      - POSTGRES_PORT=5432
+      - POSTGRES_PORT=5500
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=111
       - POSTGRES_DB=dev_test
@@ -28,10 +28,10 @@ services:
     image: dpage/pgadmin4
     restart: always
     environment:
-      - PGADMIN_DEFAULT_EMAIL=postgres@pgadmin.org
-      - PGADMIN_DEFAULT_PASSWORD=postgres
+      - PGADMIN_DEFAULT_EMAIL=root@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=root
     ports:
-      - "5050:80"
+      - "5700:80"
     depends_on:
       - pg_database
     volumes:
@@ -53,7 +53,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=111
       - POSTGRES_DB=dev_test
-      - POSTGRES_PORT=5432
+      - POSTGRES_PORT=5500
       - ssl_mode=prefer
     depends_on:
       - pg_database

@@ -1,10 +1,15 @@
-FROM node:19-alpine AS build
-WORKDIR /usr/src/app
-COPY package.json package-lock.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+# Step 1: Build the app in image 'builder'
+FROM node:12.8-alpine AS builder
 
-FROM nginx:1.23.2-alpine
-COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /usr/src/app/dist/helloworld /usr/share/nginx/html
+WORKDIR /usr/src/app
+COPY . .
+RUN yarn && yarn build
+
+# Step 2: Use build output from 'builder'
+FROM nginx:stable-alpine
+LABEL version="1.0"
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+WORKDIR /usr/share/nginx/html
+COPY --from=builder /usr/src/app/dist/my-angular-app/ .
