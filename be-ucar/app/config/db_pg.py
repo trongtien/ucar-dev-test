@@ -5,15 +5,17 @@ from sqlalchemy.ext.declarative import declarative_base
 from app.config.setting import settings
 from typing import Generator
 
-
-DATABASE_URL = 'postgresql://{}:{}@{}:{}/{}?sslmode={}'.format(
+DATABASE_URL = 'postgresql://{}:{}@{}:{}/{}'.format(
     settings.DB_USERNAME, 
     settings.DB_PASSWORD,
     settings.HOST_SERVER,
     settings.DB_SERVER_PORT,
-    settings.DB_NAME,
-    settings.SSL_MODE
+    settings.DB_NAME
 )
+
+print('===================================================')
+print('DATABASE_URL', DATABASE_URL)
+print('===================================================')
 
 engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 SessionLocalPG = sessionmaker(bind=engine)

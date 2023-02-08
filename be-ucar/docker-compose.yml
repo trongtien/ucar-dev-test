@@ -1,34 +1,68 @@
 version: '3.8'
 
 services:
-  web:
-    build: .
-    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0 --port 8008'
-    volumes:
-      - .:/app
-    ports:
-      - 8008:8000
-
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=111
-      - POSTGRES_DB=dev_test
-      - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=5432
-      - ssl_mode=prefer
-    depends_on:
-      - db_pg
-  db_pg:
+  pg_database:
+    container_name: pg_database_container
     image: postgres:15-alpine
+    restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     expose:
-      - 5432
+      - "5432"
+    networks:
+      - default
+    ports:
+      - 5432:5432
     environment:
+      - POSTGRES_PORT=5432
       - POSTGRES_USER=postgres
-      - POSTGRES_HOST=postgres
       - POSTGRES_PASSWORD=111
       - POSTGRES_DB=dev_test
+      - POSTGRES_HOST=pg_database_container
+    networks:
+      - practice
 
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=postgres@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+    ports:
+      - "5050:80"
+    depends_on:
+      - pg_database
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - practice
+
+  fast_api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn app.main:app --host 0.0.0.0 --port 5000 --reload
+    volumes:
+      - ./app:/code/app:z
+    ports:
+      - "5000:5000"
+    environment:
+      - HOST_SERVER=pg_database_container
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=111
+      - POSTGRES_DB=dev_test
+      - POSTGRES_PORT=5432
+      - ssl_mode=prefer
+    depends_on:
+      - pg_database
+    restart: always
+    networks:
+      - practice
+  
 volumes:
   postgres_data:
+  pgadmin-data:
+
+networks:
+  practice:

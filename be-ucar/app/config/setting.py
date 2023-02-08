@@ -1,6 +1,6 @@
 import os
 import urllib
-from pydantic import BaseSettings
+from pydantic import BaseSettings, Field
 from dotenv import load_dotenv
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
@@ -10,12 +10,13 @@ class Settings(BaseSettings):
     ROJECT_NAME = os.getenv('project_name', 'Fast Api Ucar Dev Test')
     API_PREFIX = '/api/v1'
     BACKEND_CORS_ORIGINS = ['*']
-    HOST_SERVER = os.getenv('POSTGRES_HOST', 'localhost')
-    DB_SERVER_PORT = urllib.parse.quote_plus(str(os.getenv('POSTGRES_PORT', '5432')))
-    DB_NAME = os.getenv('POSTGRES_DB', 'dev_test')
-    DB_USERNAME = urllib.parse.quote_plus(str(os.getenv('POSTGRES_USER', 'postgres')))
-    DB_PASSWORD = urllib.parse.quote_plus(str(os.getenv('POSTGRES_PASSWORD', '111')))
-    SSL_MODE =  urllib.parse.quote_plus(str(os.getenv('ssl_mode','prefer')))
+    HOST_SERVER: str = Field('0.0.0.0', env='HOST_SERVER')
+    DB_SERVER_PORT: str = Field('5432', env='DB_SERVER_PORT')
+    DB_NAME: str = Field('dev_test', env='DB_NAME')
+    DB_USERNAME: str = Field('postgres', env='DB_USERNAME')
+    DB_PASSWORD: str = Field('111', env='DB_PASSWORD')
+    SSL_MODE: str = Field('prefer', env='SSL_MODE')
+    DATABASE_URL: str = Field('prefer', env='DATABASE_URL')
 
     
 settings = Settings()
