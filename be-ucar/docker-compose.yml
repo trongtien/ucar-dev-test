@@ -3,7 +3,7 @@ version: '3.8'
 services:
   pg_database:
     container_name: pg_database_container
-    image: postgres:15-alpine
+    image: pg_database_uacar
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data/
@@ -13,7 +13,7 @@ services:
     networks:
       - default
     ports:
-      - '5432:5432'
+      - '5500:5432'
     environment:
       - POSTGRES_PORT=5500
       - POSTGRES_USER=postgres
