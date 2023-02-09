@@ -21,7 +21,7 @@ services:
       - POSTGRES_DB=dev_test
       - POSTGRES_HOST=pg_database_container
     networks:
-      - practice
+      - dev
 
   pgadmin:
     container_name: pgadmin
@@ -37,7 +37,7 @@ services:
     volumes:
       - pgadmin-data:/var/lib/pgadmin
     networks:
-      - practice
+      - dev
 
   fast_api:
     build: 
@@ -59,11 +59,11 @@ services:
       - pg_database
     restart: always
     networks:
-      - practice
+      - dev
   
 volumes:
   postgres_data:
   pgadmin-data:
 
 networks:
-  practice:
+  dev:
