@@ -4,7 +4,7 @@ import { PathRouter } from '@app/core/contants';
 import { formatRouterLink } from '@app/core/helper';
 import { ICommonSelect, IFilterTable, ITableCardBrandItem } from '@app/core/models';
 import { CardBrandService } from '@app/core/services';
-import { BehaviorSubject } from 'rxjs';
+import { DatePipe } from '@angular/common'
 @Component({
   selector: 'app-card-brand',
   templateUrl: './card-brand.component.html',
@@ -18,7 +18,8 @@ export class CardBrandComponent implements OnInit {
 
   constructor(
     private _cardBrandService: CardBrandService,
-    private route: Router
+    private route: Router,
+    private dp: DatePipe
   ){}
 
   public dataTable: Array<ITableCardBrandItem> = []
@@ -32,6 +33,14 @@ export class CardBrandComponent implements OnInit {
     this.filterStatusSelect = this._cardBrandService.optionFilterCardBrand
     
     this.selectFilterCardBrandStatus = this._cardBrandService.optionFilterCardBrand[0]
+  }
+
+  public transformDate(date: any){
+    return this.dp.transform(
+      date,
+      'MM/dd/yyyy',
+      'es-ES'
+    )
   }
 
   private fetchApiGetAll(filter: IFilterTable){
@@ -125,6 +134,8 @@ export class CardBrandComponent implements OnInit {
   }
 
   public onDetail(id: number){
-    this.route.navigate([formatRouterLink(PathRouter.CARD_BRAND), id])
+    console.log('id onDetail', id)
+    console.log('id onDetail',  this.route.navigate([formatRouterLink(PathRouter.CARD_BRAND), id]))
+    return this.route.navigate(['/card-brand', id])
   }
 }

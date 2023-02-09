@@ -7,6 +7,7 @@ import { ModalCuCardBrandComponent } from './modal-cu-card-brand/modal-cu-card-b
 import { FormsModule }   from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DetailComponent } from './detail/detail.component';
+import { DatePipe } from '@angular/common';
 @NgModule({
     imports: [
         CommonModule,
@@ -22,6 +23,9 @@ import { DetailComponent } from './detail/detail.component';
         CardBrandComponent,
         ModalCuCardBrandComponent,
         DetailComponent
+    ],
+    providers: [
+        DatePipe,
     ],
     schemas: [
         NO_ERRORS_SCHEMA

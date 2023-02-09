@@ -3,6 +3,7 @@ import os
 import aiofiles
 import base64
 import uuid
+from app.config.constants import PATH_FILE, FOLDER_PUBLIC
 from fastapi import APIRouter, status, UploadFile
 
 from app.api.base.schema_base import DataResponseBase
@@ -11,31 +12,25 @@ from app.api.base.schema_base import DataResponseBase
 router = APIRouter()
 logger = logging.getLogger()
 
-BASEDIR = os.path.dirname(__file__)
-PATH_FILE = '/home/kelvin/Desktop/ucar-dev-test/be-ucar/app/public/'
 
 @router.post("",  status_code = status.HTTP_200_OK)
 async def create_upload_file(file: UploadFile):
     try:
-        print('file', file)
-
         _, ext = os.path.splitext(file.filename)
-        img_dir = os.path.join(BASEDIR, PATH_FILE)
-        if not os.path.exists(img_dir):
-            os.makedirs(img_dir)
+        file_name_upload = f'${uuid.uuid4()}_${file.filename}'
+
+        if not os.path.exists(PATH_FILE):
+            os.makedirs(PATH_FILE)
         content = await file.read()
         if file.content_type not in ['image/jpeg', 'image/png', 'image/svg']:
             return DataResponseBase(status_code=406, detail="Only .jpeg or .png  files allowed")
 
-            
-        file_name_upload = f'${uuid.uuid4()}_${file.filename}'
         format_file_name = file_name_upload.replace(' ', '_').lower().replace('-', '_')
 
-        async with aiofiles.open(os.path.join(img_dir, format_file_name), mode='wb') as f:
+        async with aiofiles.open(os.path.join(PATH_FILE, format_file_name), mode='wb') as f:
             await f.write(content)
 
-        print('format_file_name', format_file_name)
-        return DataResponseBase().success_response(data=format_file_name)
+        return DataResponseBase().success_response(data=os.path.join(FOLDER_PUBLIC, format_file_name))
     except Exception as e:
         return DataResponseBase(status_code=400, detail=logger.error(e))
 

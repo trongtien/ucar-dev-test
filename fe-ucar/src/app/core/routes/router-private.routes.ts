@@ -4,10 +4,6 @@ import { PathRouter } from '../contants';
 
 
 export const RouterPrivate: Routes = [
-  {
-    path: '**',
-    redirectTo: 'card-brand'
-  },
   { path: 'card-brand', loadChildren: () => import('@app/pages/card-brand/card-brand.module').then(m => m.CardBrandModule)}
 ];
   

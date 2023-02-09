@@ -108,7 +108,7 @@
           <td [width]="'15%'">
             <div class="table-body-time">
               <p class="table-body-time_title">Last Update</p>
-              <p class="table-body-time_date">{{ item.last_update | date:'MM/dd/yyyy'}}</p>
+              <p class="table-body-time_date">{{ transformDate(item.last_update) }}</p>
             </div>
           </td>
           <td [width]="'20%'">

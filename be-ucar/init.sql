@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS public.card_brand
 (
-    id integer NOT NULL,
+    id serial NOT NULL,
     created_at timestamp with time zone NOT NULL,
-    updated_at time with time zone NOT NULL,
-    deleted_at time with time zone,
+    updated_at timestamp with time zone,
+    deleted_at timestamp with time zone,
     created_by character varying COLLATE pg_catalog."default",
     updated_by character(1) COLLATE pg_catalog."default",
     deleted_by character(1) COLLATE pg_catalog."default",
@@ -25,10 +25,10 @@ DROP TABLE IF EXISTS public.card_model;
 
 CREATE TABLE IF NOT EXISTS public.card_model
 (
-    id integer NOT NULL,
-    created_at time with time zone NOT NULL,
-    updated_at time with time zone,
-    deleted_at time with time zone,
+    id serial NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone,
+    deleted_at timestamp with time zone,
     created_by character varying COLLATE pg_catalog."default",
     updated_by character varying COLLATE pg_catalog."default",
     deleted_by character varying COLLATE pg_catalog."default",

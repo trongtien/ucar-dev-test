@@ -1,11 +1,14 @@
-import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+
 
 from app.api.v1.api_route import router
 from app.api.base.exception_handler import CustomException, exception_handler
 from app.config.db_pg import database, engine, BasePG
 from app.config.setting import settings
+from app.config.constants import PATH_FILE
+import os
 
 BasePG.metadata.create_all(bind=engine)
 
@@ -29,10 +32,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 app.include_router(router, prefix=default_app_setting.API_PREFIX)
 app.add_exception_handler(CustomException, exception_handler.http_exception_handler)
 
+if PATH_FILE:
+    app.mount("/media", StaticFiles(directory=PATH_FILE), name="media")
 
 @app.on_event("startup")
 async def startup():
