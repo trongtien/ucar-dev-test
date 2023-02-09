@@ -3,7 +3,7 @@ version: '3.8'
 services:
   pg_database:
     container_name: pg_database_container
-    image: pg_database_uacar
+    image: postgres:15-alpine
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data/
