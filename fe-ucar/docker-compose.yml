@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
     app:
-        image: 'my-angular-app'
+        image: 'fe-angular-ucar-dev-test'
         build: .
         ports:
           - 5800:80
