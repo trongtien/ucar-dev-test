@@ -1,15 +1,12 @@
-# Step 1: Build the app in image 'builder'
-FROM node:12.8-alpine AS builder
-
+FROM node:19-alpine AS build
 WORKDIR /usr/src/app
+COPY package.json package-lock.json ./
+RUN npm install
 COPY . .
-RUN yarn && yarn build
+RUN npm run build --  --output-path=dist --configuration=production --output-hashing=all
 
-# Step 2: Use build output from 'builder'
-FROM nginx:stable-alpine
-LABEL version="1.0"
 
-COPY nginx.conf /etc/nginx/nginx.conf
 
-WORKDIR /usr/share/nginx/html
-COPY --from=builder /usr/src/app/dist/my-angular-app/ .
+FROM nginx:1.23.2-alpine
+COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /usr/src/app/dist/fe-ucar /usr/share/nginx/html

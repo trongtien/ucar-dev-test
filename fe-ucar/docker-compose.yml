@@ -5,4 +5,4 @@ services:
         image: 'my-angular-app'
         build: .
         ports:
-          - 3000:80
+          - 5800:80

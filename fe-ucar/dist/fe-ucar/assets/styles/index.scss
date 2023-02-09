@@ -1,0 +1,77 @@
+@import "src/assets/styles/variables.scss";
+@import "src/assets/styles/mixins.scss";
+
+// Menu custom
+.ant-menu {
+    background: $primary-bg !important;
+
+    .ant-menu-submenu-arrow,
+    .ant-menu-submenu-expand-icon {
+        color: $light-text !important;
+    }
+
+
+
+    [nz-submenu-inline-child] {
+        padding-left: pxToRem(16) !important;
+
+        [nz-menu-item] {
+            padding-left: pxToRem(32) !important;
+        }
+    }
+}
+
+// Form custom
+.ant-form-item {
+    & .ant-form-item-label>label {
+        font-family: $secondary-font;
+        color: $Neutral-6;
+        font-weight: 400;
+        font-size: pxToRem(14);
+    }
+
+
+    [nz-input] {
+        border-radius: pxToRem(4);
+        background: $Neutral-1;
+        border: pxToRem(1) solid $Neutral-4;
+        color: $secondary-text;
+        font-weight: 400;
+        font-size: pxToRem(14);
+        font-family: $secondary-font;
+    }
+
+    .ant-input-status-error{
+        border: pxToRem(1) solid red !important;
+    }
+
+    [nz-input]::placeholder {
+        font-family: $secondary-font;
+        font-weight: 400;
+        font-size: pxToRem(14);
+        color: $secondary-placeholder;
+    }
+}
+
+// Upload File custom
+.ant-upload{
+    border-radius: 50% !important;
+}
+
+
+// Button primary
+.ant-btn-primary{
+    background: $secondary-bg;
+    border-radius: pxToRem(4);
+    padding: pxToRem(9) pxToRem(16);
+    color: $light-text;
+    font-weight: 500;
+    font-size: pxToRem(14);
+    font-family: $secondary-font;
+    line-height: 0;
+}
+
+// Chekbox custom
+.ant-checkbox-inner{
+    border-radius: 50%;
+}
