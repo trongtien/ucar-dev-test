@@ -13,11 +13,9 @@ class CardModelRepository:
         offset = limit * skip
         search = "%{}%".format(search_name.lower())
         
-        # global list_data_engine_card_modal
-
         list_data_engine_card_modal = select(CardModel)
         if hasattr(CardModel, 'name') and search_name is not None and len(search_name) > 0: 
-            list_data_engine_card_modal = list_data_engine_card_modal.filter(CardModel.name.lower().like(search))
+            list_data_engine_card_modal = list_data_engine_card_modal.filter(CardModel.name.like(search))
 
         if hasattr(CardModel, "card_brand_id") and card_brand_id is not None:
             list_data_engine_card_modal = list_data_engine_card_modal.filter(CardModel.card_brand_id == card_brand_id)
@@ -71,13 +69,15 @@ class CardModelRepository:
     async def update_is_delete(db: Session, current_card_brand: CardModel):
         current_card_brand.is_delete = True
         current_card_brand.deleted_by = 'root'
-
+      
         db.commit()
         db.refresh(current_card_brand)
         return current_card_brand
 
     @staticmethod
     async def update(db: Session, current_card_model: CardModel, card_model_update: CardModalItemRequest):
+        print('current_card_model', current_card_model)
+
         current_card_model.name = card_model_update.name
         current_card_model.description = card_model_update.description
         current_card_model.logo = card_model_update.logo

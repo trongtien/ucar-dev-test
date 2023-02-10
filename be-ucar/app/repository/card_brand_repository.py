@@ -17,7 +17,7 @@ class CardBrandRepository:
             list_data_engine_card_brand = list_data_engine_card_brand.filter(CardBrand.status == status)
 
         if hasattr(CardBrand, 'name') and search_name is not None and len(search_name) > 0: 
-            list_data_engine_card_brand = list_data_engine_card_brand.filter(CardBrand.name.lower().like(search))
+            list_data_engine_card_brand = list_data_engine_card_brand.filter(CardBrand.name.like(search))
 
         if hasattr(CardBrand, 'status') and status is not None:
             list_data_engine_card_brand = list_data_engine_card_brand.filter(CardBrand.status == status)

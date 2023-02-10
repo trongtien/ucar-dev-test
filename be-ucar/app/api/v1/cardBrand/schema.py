@@ -24,7 +24,8 @@ class CardBrandItemResponse(CardBrandItemBase):
 
 
 class CardBrandItemRequest(CardBrandItemBase):
-    name: str
-    logo: Optional[str]
-    description: Optional[str]
+    # name: str
+    logo: Optional[str] = None
+    description: Optional[str] = None
+    status: int
 

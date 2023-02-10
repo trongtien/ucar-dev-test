@@ -54,6 +54,7 @@ async def detail(card_brand_id: int, db: Session = Depends(get_db_pg)):
 @router.put("/{card_brand_id}", status_code = status.HTTP_200_OK, name='UPdate card model')
 async def update(card_brand_id: int, card_brand_data: CardBrandItemRequest, db: Session = Depends(get_db_pg)):
     try:
+        print("===card_brand_data====", card_brand_data)
         exist_service = await CardBrandService().updateDetail(db=db, id=card_brand_id,card_brand_update=card_brand_data)
 
         if exist_service.get('code') is not True:

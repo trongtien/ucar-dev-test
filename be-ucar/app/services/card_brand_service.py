@@ -1,10 +1,12 @@
 from sqlalchemy.orm import Session
+import logging
 
 from app.repository.card_brand_repository import CardBrandRepository
 from app.repository.card_model_repository import CardModelRepository
 from app.api.v1.cardBrand.schema import CardBrandItemRequest
 from app.services.service_base import ServiceBase
 
+logger = logging.getLogger()
 class CardBrandService(ServiceBase, CardBrandRepository):
 
     def __init__(self):
@@ -46,15 +48,18 @@ class CardBrandService(ServiceBase, CardBrandRepository):
             return seft.response(status=400, data=None, code=False, msg='Id card brand already exists')
         else:
             try:
+                print('=================================')
+                print('exist_card_brand', exist_card_brand)
+                print('card_brand_update', card_brand_update)
+                print('=================================')
                 updated_card_brand = await seft.update(db=db, current_card_brand=exist_card_brand, card_brand_update=card_brand_update)
                 return  seft.response(data=updated_card_brand)
             except Exception as e:
-                return seft.response(status=500, data=None, code=False, msg=str(e))
+                return seft.response(status=500, data=None, code=False, msg=logger.error(e))
         
     
     async def delete(seft, db: Session,  id: int):
         exist_card_brand = await seft.findCardById(db=db, id=id)
-        print('exist_card_brand', exist_card_brand)
         if exist_card_brand is None:
             return seft.response(status=400, data=None, code=False, msg='Id card brand already exists')
         
