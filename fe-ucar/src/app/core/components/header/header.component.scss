@@ -16,6 +16,24 @@ nz-header {
     box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
     display: flex;
     justify-content: space-between;
+    
+    &.app-component_left{
+        width: 100%;
+        height: 100%;
+        & .header-toggle{
+            & .header-trigger{
+                height: unset !important;
+            }
+        }
+    }
+
+    & .app-component_left-active{
+        visibility: visible;
+    }
+
+    & .app-component_left-un-active{
+        visibility: hidden;
+    }
 
     & .app-component-header_right{
         display: flex;

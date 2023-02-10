@@ -1,7 +1,6 @@
 @import "src/assets/styles";
 
 .header-trigger {
-    height: 0.859rem;
     width: 0.977rem;
     font-size: 1rem;
     cursor: pointer;
@@ -14,6 +13,11 @@
     vertical-align: middle;
     color: $Neutral-1;
 }
+
+.icon-collapse-side-bar-resize{
+    color: $Neutral-8;
+}
+
 
 .icon-collapse-side-bar-mt-active{
     margin: 0 0 0 pxToRem(20);

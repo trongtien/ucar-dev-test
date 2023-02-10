@@ -9,6 +9,11 @@
   <span
     class="trigger"
     nz-icon
+    [class]="
+      isVResizes
+        ? 'icon-collapse-side-bar-resize'
+        : ''
+    "
     [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
   ></span>
 </div>

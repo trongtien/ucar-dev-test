@@ -1,7 +1,9 @@
 <nz-header>
   <div class="app-component-header">
-    <div class="app-component-left"></div>
-
+    <div [class]="isResize ? 'app-component_left app-component_left-active' : 'app-component_left-un-active'">
+      <app-toggle-layout [className]="'header-toggle'"></app-toggle-layout>
+    </div>
+   
     <div class="app-component-header_right">
       <span nz-icon nzType="info-circle" style="font-size: 1.2rem;" nzTheme="outline"></span>
       <span nz-icon  nzTheme="outline">

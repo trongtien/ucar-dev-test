@@ -7,7 +7,7 @@ import { LayoutService, ResizeService } from '@app/core/services';
   styleUrls: ['./toggle-layout.component.scss']
 })
 export class ToggleLayoutComponent implements OnInit {
-  public isViewIcon = true
+  public isVResizes = false
   public isCollapsed = true
 
   constructor(
@@ -17,7 +17,7 @@ export class ToggleLayoutComponent implements OnInit {
   
   
   ngOnInit(): void {
-    this._resizeService.isViewResponsive$.subscribe(e => this.isViewIcon = e)
+    this._resizeService.isViewResponsive$.subscribe(e => this.isVResizes = e)
     this._layoutService.isToggleLayout$.subscribe(e => {
       this.isCollapsed = e
     })
