@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonService, ResizeService } from '@core/services';
 
 @Component({
@@ -10,10 +11,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private commonService: CommonService,
-    private resizeService: ResizeService
+    private resizeService: ResizeService,
+    private route: Router,
   ) { }
   
   ngOnInit(): void {
+    this.route.navigate(['/card-brand'])
     this.commonService.dynamicPage()
     this.resizeService.detectSize()
   }

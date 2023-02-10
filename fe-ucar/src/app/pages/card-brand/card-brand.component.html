@@ -1,23 +1,37 @@
 <div class="card-brand-header">
   <div class="card-brand-header_left">
-    <h1 nz-typography class="card-brand-header_left-title">CAR BRANDS LIST</h1>
-    <nz-select
-      [(ngModel)]="selectFilterCardBrandStatus"
-      class="card-brand-header_left-select-filter"
-      (ngModelChange)="changeFilterStatus($event)"
+    <label class="card-brand-header_left-title">CAR BRANDS LIST</label>
+    <a
+      class="car-brand-filter-type"
+      nz-dropdown
+      nzTrigger="click"
+      [nzDropdownMenu]="menu"
     >
-      <nz-option
-        *ngFor="let option of filterStatusSelect"
-        [nzValue]="option"
-        [nzLabel]="option.label"
-      ></nz-option>
-    </nz-select>
+      <i nz-icon nzType="down"></i>
+      <span> {{ selectFilterCardBrandStatus.label }} </span>
+    </a>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu nzSelectable class="car-brand-dropdown-filter-type-menu">
+        <li
+          *ngFor="let item of filterStatusSelect"
+          (click)="changeFilterStatus(item)"
+          nz-menu-item
+        >
+          {{ item.label }}
+        </li>
+      </ul>
+    </nz-dropdown-menu>
 
     <nz-input-group
       [nzPrefix]="suffixIconSearch"
       class="card-brand-header_left-search-filter"
     >
-      <input type="text" nz-input placeholder="input search text" (change)="onChangeSearch($event)"/>
+      <input
+        type="text"
+        nz-input
+        placeholder="input search text"
+        (change)="onChangeSearch($event)"
+      />
     </nz-input-group>
 
     <ng-template #suffixIconSearch>
@@ -44,7 +58,7 @@
     nzShowSizeChanger
     [nzData]="dataTable"
     [nzBordered]="false"
-    [nzLoading]="false"
+    [nzLoading]="isLoadingTable"
     [nzPageSize]="filterTable.limit ? +filterTable.limit : 10"
     [nzPageIndex]="filterTable.page ? +filterTable.page : 1"
     [nzScroll]="{ x: '150' }"
@@ -55,17 +69,13 @@
       <ng-container *ngFor="let item of cardBrandTable.data">
         <tr>
           <td
-            [width]="'20'"
+            [width]="'4%'"
             [nzChecked]="setOfCheckedId.has(item.id)"
             (nzCheckedChange)="onItemChecked(item.id, $event)"
           ></td>
-          <td [width]="'80'" [align]="'center'" class="td-logo">
-            <ng-container
-              *ngIf="item.logo === ''; else existLogo"
-            >
-              <ng-container
-                *ngTemplateOutlet="notLogo"
-              ></ng-container>
+          <td [width]="'10'" [align]="'left'" class="td-logo">
+            <ng-container *ngIf="item.logo === ''; else existLogo">
+              <ng-container *ngTemplateOutlet="notLogo"></ng-container>
             </ng-container>
 
             <ng-template #notLogo>
@@ -73,44 +83,54 @@
             </ng-template>
 
             <ng-template #existLogo>
-              <nz-avatar [nzSrc]="linkRootPath + item.logo" [nzSize]="55"></nz-avatar>
+              <nz-avatar
+                [nzSrc]="linkRootPath + item.logo"
+                [nzSize]="55"
+              ></nz-avatar>
             </ng-template>
           </td>
 
           <td [width]="'150'" ngClass="td-info">
-            <div 
-              class="table-body-info-card " 
-              [ngClass]="item.status === 1
-                ? 'table-body-info-card-bd-active '
-                : 'table-body-info-card-bd-inactive'"
-              >
+            <div
+              class="table-body-info-card"
+              [ngClass]="
+                item.status === 1
+                  ? 'table-body-info-card-bd-active '
+                  : 'table-body-info-card-bd-inactive'
+              "
+            >
               <p class="table-body-info-card_name">{{ item.name }}</p>
-              
+
               <p class="table-body-info-card_note">
                 <ng-container
                   class="table-body-status_name"
-                  *ngIf="item.description !== null && item.description.length > 0; else notExistDescription"
+                  *ngIf="
+                    item.description !== null && item.description.length > 0;
+                    else notExistDescription
+                  "
                 >
-
                   <ng-container
                     *ngTemplateOutlet="existDescription"
                   ></ng-container>
-
                 </ng-container>
 
                 <ng-template #notExistDescription>
-                  <span class="table-body-info-card_model-number not-exist-description">
+                  <span
+                    class="table-body-info-card_model-number not-exist-description"
+                  >
                     {{ item.number_model }} Models
                   </span>
                 </ng-template>
-  
+
                 <ng-template #existDescription>
                   <span
-                    class="table-body-info-card_description table-body-eclipse "
+                    class="table-body-info-card_description table-body-eclipse"
                   >
                     {{ item.description }}
                   </span>
-                  <span class="table-body-info-card_model-number exist-description">
+                  <span
+                    class="table-body-info-card_model-number exist-description"
+                  >
                     {{ item.number_model }} Models
                   </span>
                 </ng-template>
@@ -120,7 +140,9 @@
           <td [width]="'80'">
             <div class="table-body-time">
               <p class="table-body-time_title">Last Update</p>
-              <p class="table-body-time_date">{{ transformDate(item.last_update) }}</p>
+              <p class="table-body-time_date">
+                {{ transformDate(item.last_update) }}
+              </p>
             </div>
           </td>
           <td [width]="'100'">
@@ -154,7 +176,12 @@
           </td>
 
           <td [width]="'100'">
-            <button class="table-body-action-view" nz-button nzType="default" (click)="onDetail(item.id)">
+            <button
+              class="table-body-action-view"
+              nz-button
+              nzType="default"
+              (click)="onDetail(item.id)"
+            >
               View Details
             </button>
           </td>

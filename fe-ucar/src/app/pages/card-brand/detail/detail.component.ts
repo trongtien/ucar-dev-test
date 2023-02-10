@@ -12,11 +12,11 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class DetailComponent implements OnInit {
 
+  private idParam!: string
   public formDetail!: UntypedFormGroup;
   public isUpdate: boolean = false;
   public optionBrandStatus: Array<ICommonSelect> = []
-  
-  private idParam!: string 
+  public selectStatus: ICommonSelect = { label: "Active", value: 1 }
 
   // Upload file
   public avatarUrl?: string;
@@ -29,7 +29,7 @@ export class DetailComponent implements OnInit {
 
   private initDataForm: any = {
     brand_name: [null, [Validators.required]],
-    brand_status: [0, [Validators.required]],
+    // brand_status: [0, [Validators.required]],
     brand_description: [null]
   }
 
@@ -47,18 +47,18 @@ export class DetailComponent implements OnInit {
     this.formDetail = this._formModal.group(this.initDataForm)
     this._router.paramMap.subscribe((params: ParamMap | null) => {
       const id = params?.get('id')
-      if(id){
+      if (id) {
         this.idParam = id
         this._cardBrandService.finbdById(id).subscribe(response => {
           const item = response.data
 
-          if(item.logo !== null){
+          if (item.logo !== null) {
             const nameLogo = item.logo.split("/")[1]
             this._uploadFileService.getFileBase64ToFileName(nameLogo).subscribe(response => {
-              if(response.data === null){
+              if (response.data === null) {
                 this.avatarUrl = undefined
               }
-              else{
+              else {
                 this.avatarUrl = this._uploadFileService.convertBase64File(item.logo, response.data)
               }
             })
@@ -68,36 +68,46 @@ export class DetailComponent implements OnInit {
 
           this.formDetail.setValue({
             brand_name: item.name,
-            brand_status: this._cardBrandService.optionBrandStatus.find(e => e.value === item.status),
             brand_description: item.description
           })
+
+          const existOptionStatus = this._cardBrandService.optionBrandStatus?.find(e => e.value === item.status)
+          if (existOptionStatus) {
+            this.selectStatus = existOptionStatus
+          } else {
+            this.selectStatus = { label: "Active", value: 1 }
+          }
         })
       }
     });
-   
+
   }
 
-  public setIsUpdate(){
+  public setIsUpdate() {
     this.isUpdate = !this.isUpdate
   }
 
-  public onBackRoute(){
+  public onBackRoute() {
     this._location.back()
   }
 
+  public onChangeStatus(option: ICommonSelect) {
+    this.selectStatus = option
+  }
+
   public submitForm(): void {
-    if(!this.idParam) return 
-    
+    if (!this.idParam) return
+
     if (this.formDetail.valid) {
       const valueForm = this.formDetail.value
 
-      if(this.isChangeFile && this.fileUploadBase64){
-        this._uploadFileService.uploadFile(this.fileUploadBase64).subscribe( (response: any) => {
+      if (this.isChangeFile && this.fileUploadBase64) {
+        this._uploadFileService.uploadFile(this.fileUploadBase64).subscribe((response: any) => {
           this.callApiUpdate({
             description: valueForm.brand_description,
             logo: response.data,
             name: valueForm.brand_name,
-            status: valueForm.brand_status.value
+            status: +this.selectStatus.value
           })
         })
       } else {
@@ -105,10 +115,10 @@ export class DetailComponent implements OnInit {
           description: valueForm.brand_description,
           logo: valueForm.logo,
           name: valueForm.brand_name,
-          status: valueForm.brand_status.value
+          status: +this.selectStatus.value
         })
       }
-      
+
     } else {
       Object.values(this.formDetail.controls).forEach(control => {
         if (control.invalid) {
@@ -119,16 +129,16 @@ export class DetailComponent implements OnInit {
     }
   }
 
-  private callApiUpdate(valueForm: IRequestCardBrandItem){
-    this._cardBrandService.update(this.idParam,valueForm).subscribe((response: any) => {
-      if(response.code = 1){
+  private callApiUpdate(valueForm: IRequestCardBrandItem) {
+    this._cardBrandService.update(this.idParam, valueForm).subscribe((response: any) => {
+      if (response.code = 1) {
         this.setIsUpdate()
       }
     });
   }
 
   public handleChangeFile(info: { file: NzUploadFile }): void {
-    if(info.file.originFileObj){
+    if (info.file.originFileObj) {
       this.fileUploadBase64 = info.file.originFileObj
     }
     this._uploadFileService.getBase64(info.file!.originFileObj!, (img: string) => {

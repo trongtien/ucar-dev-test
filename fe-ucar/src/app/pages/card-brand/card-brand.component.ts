@@ -6,6 +6,8 @@ import { ICommonSelect, IFilterTable, ITableCardBrandItem } from '@app/core/mode
 import { CardBrandService } from '@app/core/services';
 import { DatePipe } from '@angular/common'
 import { environment } from '@environments/environment';
+import { DEFAULT_LIMIT, DEFAULT_PAGE } from '@app/core/contants/root';
+import { BehaviorSubject, Observable } from 'rxjs';
 @Component({
   selector: 'app-card-brand',
   templateUrl: './card-brand.component.html',
@@ -14,9 +16,13 @@ import { environment } from '@environments/environment';
 export class CardBrandComponent implements OnInit {
   public selectFilterCardBrandStatus: ICommonSelect = {label: "All", value: -1}
   public isModalCreateBrand: boolean = false
+  public isLoadingTable: boolean = false
   public setOfCheckedId = new Set<number>();
   public filterStatusSelect: Array<ICommonSelect> = []
   public linkRootPath = environment.pathImage
+
+  private _isLoadingSubject$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true)
+   public isLoading$: Observable<boolean> = this._isLoadingSubject$.asObservable()
 
   constructor(
     private _cardBrandService: CardBrandService,
@@ -31,6 +37,7 @@ export class CardBrandComponent implements OnInit {
   }
 
   ngOnInit(): void {
+   
     this.fetchApiGetAll(this.filterTable)
     this.filterStatusSelect = this._cardBrandService.optionFilterCardBrand
     
@@ -45,18 +52,23 @@ export class CardBrandComponent implements OnInit {
     )
   }
 
-  private fetchApiGetAll(filter: IFilterTable){
-    this._cardBrandService.getAll(filter).subscribe(data => this.dataTable = data.data.items.map((e: ITableCardBrandItem) => {
-      return {
-        ...e,
-        checked: false, 
-        expand: false, 
-        logo: e.logo === null ? '' : e.logo,
-        number_model: 0,
-        last_update: e.updated_at === null ? e.created_at : e.updated_at,
-        description: e.description === null ? '' : e.description
-      }
-    }))
+  private async fetchApiGetAll(filter: IFilterTable){
+    this.isLoadingTable = true
+    this._cardBrandService.getAll(filter).subscribe(data => {
+
+      this.dataTable = data.data.items.map((e: ITableCardBrandItem) => {
+        return {
+          ...e,
+          checked: false, 
+          expand: false, 
+          logo: e.logo === null ? '' : e.logo,
+          number_model: 0,
+          last_update: e.updated_at === null ? e.created_at : e.updated_at,
+          description: e.description === null ? '' : e.description
+        }
+      })
+      this.isLoadingTable = false
+    })
   }
 
   public updateCheckedSet(id: number, checked: boolean): void {
@@ -100,8 +112,8 @@ export class CardBrandComponent implements OnInit {
       ...this.filterTable,
       search: undefined,
       status: +event.value,
-      page: '1',
-      limit: '10'
+      page: DEFAULT_PAGE,
+      limit: DEFAULT_LIMIT
     })
     this.selectFilterCardBrandStatus = event
   }
@@ -110,8 +122,8 @@ export class CardBrandComponent implements OnInit {
     this.isModalCreateBrand = !this.isModalCreateBrand
     if(isReload){
       this.fetchApiGetAll({
-        limit: '10',
-        page: '1'
+        limit: DEFAULT_LIMIT,
+        page: DEFAULT_PAGE
       })
     }
   }
@@ -122,22 +134,20 @@ export class CardBrandComponent implements OnInit {
     this.fetchApiGetAll({
       ...this.filterTable,
       search: valueSearch.length === 0 ? undefined : valueSearch,
-      page: '1',
-      limit: '10',
+      page: DEFAULT_PAGE,
+      limit: DEFAULT_LIMIT,
       status: +this.selectFilterCardBrandStatus.value
     })
 
     this.filterTable = {
       ...this.filterTable,
       search: valueSearch.length === 0 ? undefined : valueSearch,
-      page: '1',
-      limit: '10'
+      page: DEFAULT_PAGE,
+      limit: DEFAULT_LIMIT
     }
   }
 
   public onDetail(id: number){
-    console.log('id onDetail', id)
-    console.log('id onDetail',  this.route.navigate([formatRouterLink(PathRouter.CARD_BRAND), id]))
     return this.route.navigate(['/card-brand', id])
   }
 }

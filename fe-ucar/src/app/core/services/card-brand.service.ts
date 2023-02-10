@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ICommonSelect, IFilterTable, IRequestCardBrandItem, ITableCardBrandItem } from "../models";
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "@environments/environment";
 
 @Injectable({
@@ -10,6 +10,9 @@ import { environment } from "@environments/environment";
 export class CardBrandService{
 
   private pathApi = 'card-brand'
+
+  public _isLoadingSubject$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true)
+  public isLoading$: Observable<boolean> = this._isLoadingSubject$.asObservable()
 
   public optionBrandStatus: Array<ICommonSelect> = [
     {
@@ -55,14 +58,14 @@ export class CardBrandService{
     return this._httpClient.get<any>(url)
   }
 
-  public create(cardBrandbody: IRequestCardBrandItem):Observable<any>{
+  public create(cardBrandBody: IRequestCardBrandItem):Observable<any>{
     const url = `${environment.apiUrl}${environment.apiVersion1}${this.pathApi}`
-    return this._httpClient.post<any>(url, cardBrandbody)
+    return this._httpClient.post<any>(url, cardBrandBody)
   }
 
-  public update(id: string, cardBrandbody: IRequestCardBrandItem):Observable<any>{
+  public update(id: string, cardBrandBody: IRequestCardBrandItem):Observable<any>{
     const url = `${environment.apiUrl}${environment.apiVersion1}${this.pathApi}/${id}`
-    return this._httpClient.put<any>(url, cardBrandbody)
+    return this._httpClient.put<any>(url, cardBrandBody)
   }
     
 }

@@ -20,6 +20,12 @@
             font-size: pxToRem(24);
             font-weight: 600;
             margin-bottom: 0;
+            width: fit-content;
+            align-items: center;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            display: flex;
         }
 
         & .card-brand-header_left-select-filter {
@@ -46,6 +52,48 @@
 
             & input {
                 background: $Neutral-3;
+            }
+        }
+
+        & .car-brand-filter-type {
+            width: fit-content;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 21px;
+
+            font-family: 'Poppins';
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 22px;
+            color: #232323;
+
+            & .acticon-up {
+                font-size: 10px;
+                vertical-align: baseline;
+                margin-right: 17px;
+            }
+
+            & .anticon-down {
+                font-size: 10px;
+                vertical-align: baseline;
+                margin-right: 17px;
+            }
+        }
+
+        & .car-brand-dropdown-filter-type-menu {
+            max-width: 164px;
+            border: 1px solid #e3e3e3;
+            box-shadow: 0px -1px 2px rgb(35 35 35 / 8%), 0px 4px 8px rgb(35 35 35 / 10%);
+            border-radius: 4px;
+            width: 164px;
+          
+            & .ant-dropdown-menu-item:hover {
+              margin: 0 5px;
+            }
+            & .ant-dropdown-menu-item-selected {
+              margin: 0 5px;
             }
         }
     }
@@ -83,14 +131,8 @@
             text-overflow: ellipsis;
         }
 
-        & .td-logo{
-            padding-left: 0;
-        }
+        & .td-info {
 
-        & .td-info{
-
-            padding-left: 0;
-            
             & .table-body-info-card-bd-active {
                 border-left: pxToRem(3) solid $Rectangle-1691;
                 padding-left: pxParseToRem(40);
@@ -113,7 +155,7 @@
                 & .table-body-info-card_note {
                     display: flex;
                     margin-bottom: 0;
-    
+
                     & .table-body-info-card_description {
                         max-width: pxToRem(175);
                         font-family: $secondary-font;
@@ -123,26 +165,26 @@
                         padding-right: pxToRem(16);
                         border-right: 1px solid $Neutral-4;
                     }
-    
+
                     & .table-body-info-card_model-number {
                         font-family: $secondary-font;
                         font-size: pxToRem(14);
                         font-weight: 500;
                         color: $frame-2;
                     }
-    
+
                     & .exist-description {
                         padding-left: pxToRem(16);
                     }
-    
-                    & .not-exist-description{
+
+                    & .not-exist-description {
                         padding-left: pxToRem(0);
                     }
                 }
             }
         }
 
-        
+
 
         & .table-body-time {
             display: block;
@@ -164,7 +206,7 @@
             }
         }
 
-        & .table-body-status{
+        & .table-body-status {
             display: flex;
             gap: pxToRem(8);
             justify-items: center;
@@ -175,23 +217,23 @@
             padding-top: pxToRem(8);
             padding-bottom: pxToRem(8);
 
-            & .table-body-status_icon{
+            & .table-body-status_icon {
                 width: pxToRem(12);
                 height: pxToRem(12);
                 border-radius: 50%;
             }
 
-            & .table-body-status_icon-active{
+            & .table-body-status_icon-active {
                 border: pxToRem(1) solid $dark-3;
                 background: $dark-3;
             }
 
-            & .table-body-status_icon-inactive{
+            & .table-body-status_icon-inactive {
                 border: pxToRem(1) solid $Neutral-7;
                 background: $Neutral-7;
             }
 
-            & .table-body-status_name{
+            & .table-body-status_name {
                 font-family: $secondary-font;
                 font-weight: 500;
                 font-size: pxToRem(16);
@@ -205,7 +247,7 @@
                 color: $Neutral-7;
             }
         }
-       
+
 
         & .table-body-status_name::before {
             width: 12px;

@@ -7,9 +7,9 @@
       nzTheme="outline"
       ngClass="card-brand-detail_header-icon"
     ></span>
-    <h2 nz-typography ngClass="card-brand-detail_header-title">
+    <label ngClass="card-brand-detail_header-title">
       Brand Details
-    </h2>
+    </label>
   </div>
   <form
     nz-form
@@ -18,12 +18,11 @@
     [formGroup]="formDetail"
   >
     <div nz-col nzXl="8" nzLg="32">
-      <h2 class="title-form-card-brand">Brand Logo</h2>
+      <label class="title-form-card-brand">Brand Logo</label>
     </div>
 
-    <div nz-col nzXl="8" nzLg="32" class="mb-36">
+    <div nz-col nzXl="8" nzLg="32" class="mt-36">
       <nz-form-item>
-        <nz-form-label [nzSpan]="24">Brand Logo</nz-form-label>
         <nz-form-control
           [nzSpan]="24"
           [nzErrorTip]="'Please input your username!'"
@@ -54,13 +53,13 @@
               />
 
               <ng-container *ngIf="avatarUrl && isUpdate">
-                <ng-container
-                  *ngTemplateOutlet="changeLogo"
-                ></ng-container>
-                
+                <ng-container *ngTemplateOutlet="changeLogo"></ng-container>
               </ng-container>
               <ng-template #changeLogo>
-                <p ngClass="card-brand-detail_action-change-logo"  nzType="upload">
+                <p
+                  ngClass="card-brand-detail_action-change-logo"
+                  nzType="upload"
+                >
                   CHANGE LOGO
                 </p>
               </ng-template>
@@ -71,7 +70,7 @@
     </div>
 
     <div nz-col nzXl="8" nzLg="32">
-      <h2 class="title-form-card-brand">Brand Details</h2>
+      <label class="title-form-card-brand">Brand Details</label>
     </div>
 
     <div nz-col nzXl="8" nzLg="32" class="detail-card-brand-info">
@@ -111,7 +110,43 @@
             [nzSpan]="32"
             nzErrorTip="Please select your status!"
           >
-            <nz-select
+            <a
+              class="select-status-detail"
+              nz-dropdown
+              nzTrigger="click"
+              [nzDropdownMenu]="statusMenu2"
+              [nzPlacement]="'topLeft'"
+              [nzDisabled]="!isUpdate ? true : false"
+            >
+              <div class="select-status-item {{ selectStatus.label.toLocaleLowerCase() }}">
+                <div class="outside-circle">
+                  <span class="inside-circle"></span>
+                </div>
+                <span>{{ selectStatus.label }}</span>
+                <i nz-icon nzType="down"></i>
+              </div>
+            </a>
+            <nz-dropdown-menu #statusMenu2="nzDropdownMenu">
+              <ul nz-menu nzSelectable class="status-dropdown-menu">
+                <li
+                  *ngFor="let option of optionBrandStatus"
+                  nz-menu-item
+                  (click)="onChangeStatus(option)"
+                  [nzDisabled]="!isUpdate ? true : false"
+                  class=""
+                >
+                  <div class="select-status-item {{ option.label.toLocaleLowerCase }}">
+                    <div class="outside-circle">
+                      <span class="inside-circle"></span>
+                    </div>
+                    <span>{{ option.label }}</span>
+                  </div>
+                </li>
+              </ul>
+            </nz-dropdown-menu>
+            <input name="status" hidden value="selectedStatus.label" [disabled]="!isUpdate ? true : false" />
+
+            <!-- <nz-select
               class="form-select-status"
               id="brand_status"
               formControlName="brand_status"
@@ -123,7 +158,7 @@
                 [nzValue]="option"
                 [nzLabel]="option.label"
               ></nz-option>
-            </nz-select>
+            </nz-select> -->
           </nz-form-control>
         </nz-form-item>
       </div>

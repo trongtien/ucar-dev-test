@@ -4,6 +4,10 @@
     & .mb-36 {
         margin-bottom: pxToRem(36);
     }
+    
+    & .mt-36 {
+        margin-top: pxToRem(36);
+    }
 
     & .card-brand-detail_header-icon {
         cursor: pointer;
@@ -19,6 +23,10 @@
 
         & .card-brand-detail_header-title {
             margin-bottom: 0;
+            font-weight: 600;
+            font-size: pxToRem(24);
+            line-height: pxToRem(32);
+            color: $primary-text;
         }
     }
 
@@ -45,6 +53,20 @@
         & .card-brand-detail_action-change-logo {
             visibility: visible !important;
         }
+    }
+
+    & .card-brand-detail_img {
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+        border-radius: 50%;
+        background-position: center;
+        background-size: cover;
+        opacity: 1;
+        display: block;
+        width: 100%;
+        transition: .5s ease;
+        backface-visibility: hidden;
     }
 
     & .card-brand-detail_img:hover>.card-brand-detail_action-change-logo {
@@ -77,23 +99,97 @@
         width: 100%;
     }
 
-    & .detail-card-brand-info_status{
+    & .detail-card-brand-info_status {
         margin-left: pxToRem(32);
 
         & .form-select-status {
             max-width: pxToRem(131);
-           
+
             & ::ng-deep .ant-select-selector {
                 background: $dark-1;
                 border-radius: pxToRem(48);
-    
+
                 width: 100%;
-    
+
                 & .ant-select-selection-item {
                     font-family: $secondary-font;
                     font-weight: 500;
                     font-size: pxToRem(16);
                     color: $dark-3;
+                }
+            }
+        }
+    }
+
+    & .detail-card-brand-info_status {
+        display: flex;
+        flex-direction: column;
+
+        & .active {
+            background: $dark-1 ;
+
+            & .outside-circle {
+                border: 1px solid $dark-3 ;
+
+                & .inside-circle {
+                    background-color: $dark-3 ;
+                }
+            }
+
+            & span {
+                color: $dark-3 ;
+            }
+        }
+
+        & .select-status-detail {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: pxToRem(8);
+            width: fit-content;
+            height: pxToRem(34);
+            background: #cef7e2;
+            border-radius: pxToRem(48);
+
+            & .select-status-item {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: fit-content;
+                padding: pxToRem(5) pxToRem(12);
+                background: #fafafa;
+                border-radius: pxToRem(50);
+
+                & .outside-circle {
+                    position: relative;
+                    width: pxToRem(14);
+                    height: pxToRem(14);
+                    border-radius: 50%;
+                    margin-right: 10px;
+                    border: 1px solid rgba(95, 95, 95, 1);
+
+                    & .inside-circle {
+                        position: absolute;
+                        height: pxToRem(8);
+                        width: pxToRem(8);
+                        top: 15%;
+                        left: 15%;
+                        border-radius: 50%;
+                        background-color: rgba(95, 95, 95, 1);
+                    }
+                }
+
+                & span {
+                    font-weight: 500;
+                    font-size: pxToRem(16);
+                    line-height: pxToRem(24);
+                    color: rgba(95, 95, 95, 1);
+                }
+
+                & i {
+                    margin-left: 10px;
+                    color: rgba(95, 95, 95, 1);
                 }
             }
         }

@@ -9,10 +9,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: RouterPrivate
   },
-  {
-    path: '*',
-    redirectTo: 'card-brand'
-  }
+  
 ];
 
 @NgModule({
