@@ -1,4 +1,11 @@
+@import "src/assets/styles/variables.scss";
+
 @function pxToRem($value) {
     $remValue: ($value / 16) + rem; 
     @return $remValue;
+}
+
+
+@function pxParseToRem($px){
+    @return calc($px / $fdf) * $rem
 }

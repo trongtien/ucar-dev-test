@@ -73,3 +73,43 @@
 .ant-checkbox-inner{
     border-radius: 50%;
 }
+
+::-webkit-scrollbar {
+    width: pxToRem(6);
+    height: pxToRem(7);
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 pxToRem(5) $Neutral-6;
+    border-radius: pxToRem(8);
+}
+
+::-webkit-scrollbar-thumb {
+    background: $Neutral-6;
+    border-radius: pxToRem(8);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: $Neutral-6; 
+}
+
+.ant-table-container{
+    & ::-webkit-scrollbar {
+        width: pxToRem(6);
+        height: pxToRem(7);
+    }
+
+    & ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 pxToRem(5) $Neutral-6;
+        border-radius: pxToRem(8);
+    }
+
+    & ::-webkit-scrollbar-thumb {
+        background: $Neutral-6;
+        border-radius: pxToRem(8);
+    }
+
+    & ::-webkit-scrollbar-thumb:hover {
+        background: $Neutral-6; 
+    }
+}

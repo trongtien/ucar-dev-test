@@ -10,7 +10,7 @@ const routes: Routes = [
     children: RouterPrivate
   },
   {
-    path: '**',
+    path: '*',
     redirectTo: 'card-brand'
   }
 ];

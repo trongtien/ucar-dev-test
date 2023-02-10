@@ -63,24 +63,6 @@
 .card-brand-table {
     margin-top: pxToRem(29);
 
-    & ::-webkit-scrollbar {
-        width: pxToRem(8);
-    }
-
-    & ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 pxToRem(5) grey;
-        border-radius: pxToRem(8);
-    }
-
-    & ::-webkit-scrollbar-thumb {
-        background: grey;
-        border-radius: pxToRem(8);
-    }
-
-    & ::-webkit-scrollbar-thumb:hover {
-        background: grey; 
-    }
-
     & .ant-table-row {
         height: 100%;
         max-height: pxToRem(124);
@@ -101,19 +83,22 @@
             text-overflow: ellipsis;
         }
 
+        & .td-logo{
+            padding-left: 0;
+        }
+
         & .td-info{
 
             padding-left: 0;
-
             
             & .table-body-info-card-bd-active {
                 border-left: pxToRem(3) solid $Rectangle-1691;
-                padding-left: pxToRem(40);
+                padding-left: pxParseToRem(40);
             }
 
             & .table-body-info-card-bd-inactive {
                 border-left: pxToRem(3) solid $Neutral-7;
-                padding-left: pxToRem(40);
+                padding-left: pxParseToRem(40);
             }
 
             & .table-body-info-card {

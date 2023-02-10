@@ -41,7 +41,7 @@
         z-index: 1;
     }
 
-    & .ant-upload:hover {
+    & .upload-avatar-card-brand:hover {
         & .card-brand-detail_action-change-logo {
             visibility: visible !important;
         }
@@ -58,11 +58,15 @@
         position: absolute;
         font-family: $secondary-font;
         font-weight: 600;
+        height: pxToRem(104);
         font-size: pxToRem(16);
         color: $light-text;
         background: $Neutral-8;
         opacity: 0.8;
         overflow: hidden;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
     }
 
     & .form-view {
