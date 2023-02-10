@@ -26,7 +26,7 @@ export class ModalCuCardBrandComponent implements OnInit {
 
   private initDataForm: any = {
     brand_name: [null, [Validators.required]],
-    brand_status: [0, [Validators.required]],
+    brand_status: [{label: "Inactive", value: 0}, [Validators.required]],
     brand_description: [null]
   }
 
@@ -80,7 +80,6 @@ export class ModalCuCardBrandComponent implements OnInit {
   }
 
   public handleChangeFile(info: { file: NzUploadFile }): void {
-    console.log('info_handleChangeFile', info.file)
     if(info.file.originFileObj){
       this.fileUploadBase64 = info.file.originFileObj
     }

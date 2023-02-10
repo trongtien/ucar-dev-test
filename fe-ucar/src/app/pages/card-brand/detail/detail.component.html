@@ -1,173 +1,169 @@
 <div class="card-brand-detail">
-    <div class="card-brand-detail_header mb-36">
-        <span nz-icon nzType="left" (click)="onBackRoute()" nzTheme="outline" ngClass="card-brand-detail_header-icon"></span>
-        <h2 nz-typography ngClass="card-brand-detail_header-title">Brand Details</h2>
+  <div class="card-brand-detail_header mb-36">
+    <span
+      nz-icon
+      nzType="left"
+      (click)="onBackRoute()"
+      nzTheme="outline"
+      ngClass="card-brand-detail_header-icon"
+    ></span>
+    <h2 nz-typography ngClass="card-brand-detail_header-title">
+      Brand Details
+    </h2>
+  </div>
+  <form
+    nz-form
+    nzLayout="vertical"
+    (ngSubmit)="submitForm()"
+    [formGroup]="formDetail"
+  >
+    <div nz-col nzXl="12" nzLg="32">
+      <h2 class="title-form-card-brand">Brand Logo</h2>
     </div>
-    <form
-      nz-form
-      nzLayout="vertical"
-      (ngSubmit)="submitForm()"
-      [formGroup]="formDetail"
-    >
-        <div nz-col nzSpan="12">
-          <h2 class="title-form-card-brand">Brand Logo</h2>
-        </div>
 
-        <div nz-col nzSpan="12" class="mb-36">
-          <nz-form-item>
-            <nz-form-label [nzSpan]="24">Brand Logo</nz-form-label>
-            <nz-form-control
-              [nzSpan]="24"
-              [nzErrorTip]="'Please input your username!'"
-            >
-              <nz-upload
-                nzName="avatar"
-                nzListType="picture-card"
-                [nzShowUploadList]="false"
-                (nzChange)="handleChangeFile($event)"
-                nzAction="false"
-                ngClass="avatar-uploader"
-              >
-                <ng-container *ngIf="!avatarUrl">
-                  <span
-                    class="upload-icon"
-                    nz-icon
-                    [nzType]="loadingUploadFile ? 'loading' : 'plus'"
-                  ></span>
-                  <div class="ant-upload-text">Upload</div>
-                  
-                </ng-container>
-                <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" ngClass="card-brand-detail_img"/>
+    <div nz-col nzXl="12" nzLg="32" class="mb-36">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24">Brand Logo</nz-form-label>
+        <nz-form-control
+          [nzSpan]="24"
+          [nzErrorTip]="'Please input your username!'"
+        >
+          <nz-upload
+            nzName="avatar"
+            nzListType="picture-card"
+            [nzShowUploadList]="false"
+            (nzChange)="handleChangeFile($event)"
+            nzAction="false"
+            ngClass="avatar-uploader"
+          >
+            <ng-container *ngIf="!avatarUrl">
+              <span
+                class="upload-icon"
+                nz-icon
+                [nzType]="loadingUploadFile ? 'loading' : 'plus'"
+              ></span>
+              <div class="ant-upload-text">Upload</div>
+            </ng-container>
+            <img
+              *ngIf="avatarUrl"
+              [src]="avatarUrl"
+              style="width: 100%"
+              ngClass="card-brand-detail_img"
+            />
 
-                <ng-container *ngIf="avatarUrl">
-                  <p ngClass="card-brand-detail_action-change-logo" >CHANGE LOGO</p>
-                </ng-container>
-              </nz-upload>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
+            <ng-container *ngIf="avatarUrl">
+              <p ngClass="card-brand-detail_action-change-logo">CHANGE LOGO</p>
+            </ng-container>
+          </nz-upload>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
 
-        <div nz-col nzSpan="12">
-          <h2 class="title-form-card-brand">Brand Details</h2>
-        </div>
+    <div nz-col nzXl="12" nzLg="32">
+      <h2 class="title-form-card-brand">Brand Details</h2>
+    </div>
 
-        <div nz-col nzSpan="24" class="detail-card-brand-info">
-          <div nz-col nzSpan="6">
+    <div nz-col nzXl="12" nzLg="32" class="detail-card-brand-info">
+      <div nz-col nzXl="12" nzLg="12">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="32">Brand Name</nz-form-label>
+          <nz-form-control
+            [nzSpan]="32"
+            nzErrorTip="Please input your branch name!"
+          >
             <ng-container *ngIf="isUpdate; else formView">
               <ng-container *ngTemplateOutlet="formUpdate"></ng-container>
             </ng-container>
+          </nz-form-control>
+        </nz-form-item>
 
-            <ng-template #formView>
-              <nz-form-item>
-                <nz-form-label [nzSpan]="8">Brand Name</nz-form-label>
-                <nz-form-control
-                  [nzSpan]="24"
-                  nzErrorTip="Please input your branch name!"
-                >
-                  <span class="form-view">
-                    {{formDetail.value.brand_name}}
-                  </span>
-                </nz-form-control>
-              </nz-form-item>
-            </ng-template>
+        <ng-template #formView>
+          <span class="form-view">
+            {{ formDetail.value.brand_name }}
+          </span>
+        </ng-template>
 
-            <ng-template #formUpdate>
-              <nz-form-item>
-                <nz-form-label [nzSpan]="8">Brand Name</nz-form-label>
-                <nz-form-control
-                  [nzSpan]="24"
-                  nzErrorTip="Please input your branch name!"
-                >
-                  <input
-                    nz-input
-                    formControlName="brand_name"
-                    id="brand_name"
-                    placeholder="Input Content"
-                  />
-                </nz-form-control>
-              </nz-form-item>
-            </ng-template>
-          </div>
-  
-          <div nz-col nzSpan="6">
-            <nz-form-item>
-              <nz-form-label [nzSpan]="24">Brand Status</nz-form-label>
-              <nz-form-control
-                [nzSpan]="24"
-                nzErrorTip="Please select your status!"
-              >
-                <nz-select
-                  id="brand_status"
-                  formControlName="brand_status"
-                  nzPlaceHolder="Select a option and change input text above"
-                  [nzDisabled]="!isUpdate ? true : false"
-                >
-                <nz-option
-                    *ngFor="let option of optionBrandStatus"
-                    [nzValue]="option"
-                    [nzLabel]="option.label"
-                  ></nz-option>
-                </nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-        </div>
+        <ng-template #formUpdate>
+          <input
+            nz-input
+            formControlName="brand_name"
+            id="brand_name"
+            placeholder="Input Content"
+          />
+        </ng-template>
+      </div>
 
-        <div nz-col nzSpan="12">
-          <ng-container *ngIf="isUpdate; else formView">
-            <ng-container *ngTemplateOutlet="formUpdate"></ng-container>
-          </ng-container>
-
-          <ng-template #formView>
-            <nz-form-item>
-              <nz-form-label [nzSpan]="8">Brand Description</nz-form-label>
-              <nz-form-control
-                [nzSpan]="24"
-                nzErrorTip="Please input your username!"
-              >
-                <span class="form-view">
-                  {{formDetail.value.brand_description}}
-                </span>
-              </nz-form-control>
-            </nz-form-item>
-          </ng-template>
-
-          <ng-template #formUpdate>
-            <nz-form-item>
-              <nz-form-label [nzSpan]="8">Brand Description</nz-form-label>
-              <nz-form-control
-                [nzSpan]="24"
-                nzErrorTip="Please input your username!"
-              >
-                <textarea
-                  rows="4"
-                  formControlName="brand_description"
-                  nz-input
-                  id="brand_description"
-                  placeholder="input placeholder"
-                ></textarea>
-              </nz-form-control>
-            </nz-form-item>
-          </ng-template>
-        </div>
-
-        <div nz-col nzSpan="12">
-          <ng-container
-            class="table-body-status_name"
-            *ngIf="isUpdate; else buttonUpdate"
+      <div nz-col nzXl="12" nzLg="12" class="detail-card-brand-info_status">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="32">Brand Status</nz-form-label>
+          <nz-form-control
+            [nzSpan]="32"
+            nzErrorTip="Please select your status!"
           >
+            <nz-select
+              class="form-select-status"
+              id="brand_status"
+              formControlName="brand_status"
+              nzPlaceHolder="Select a option and change input text above"
+              [nzDisabled]="!isUpdate ? true : false"
+            >
+              <nz-option
+                *ngFor="let option of optionBrandStatus"
+                [nzValue]="option"
+                [nzLabel]="option.label"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-col nzXl="12" nzLg="32">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="32">Brand Description</nz-form-label>
+        <nz-form-control [nzSpan]="32" nzErrorTip="Please input your username!">
+          <ng-container *ngIf="isUpdate; else formViewDescription">
             <ng-container
-              *ngTemplateOutlet="buttonSave"
+              *ngTemplateOutlet="formUpdateDescription"
             ></ng-container>
           </ng-container>
+        </nz-form-control>
+      </nz-form-item>
 
-          <ng-template #buttonUpdate>
-            <button nz-button nzType="primary" (click)="setIsUpdate()">Edit Information</button>
-          </ng-template>
+      <ng-template #formViewDescription>
+        <span class="form-view">
+          {{ formDetail.value.brand_description }}
+        </span>
+      </ng-template>
 
-          <ng-template #buttonSave>
-            <button nz-button type="submit" nzType="primary">Save Changes</button>
-          </ng-template>
-        </div>
-    </form>
+      <ng-template #formUpdateDescription>
+        <textarea
+          rows="4"
+          formControlName="brand_description"
+          nz-input
+          id="brand_description"
+          placeholder="input placeholder"
+        ></textarea>
+      </ng-template>
+    </div>
+
+    <div nz-col nzXl="12" nzLg="24">
+      <ng-container
+        class="table-body-status_name"
+        *ngIf="isUpdate; else buttonUpdate"
+      >
+        <ng-container *ngTemplateOutlet="buttonSave"></ng-container>
+      </ng-container>
+
+      <ng-template #buttonUpdate>
+        <button nz-button nzType="primary" (click)="setIsUpdate()">
+          Edit Information
+        </button>
+      </ng-template>
+
+      <ng-template #buttonSave>
+        <button nz-button type="submit" nzType="primary">Save Changes</button>
+      </ng-template>
+    </div>
+  </form>
 </div>

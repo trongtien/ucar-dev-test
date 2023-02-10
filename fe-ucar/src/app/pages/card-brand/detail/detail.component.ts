@@ -42,7 +42,6 @@ export class DetailComponent implements OnInit {
   ) { }
 
 
-
   public ngOnInit(): void {
     this.optionBrandStatus = this._cardBrandService.optionBrandStatus
     this.formDetail = this._formModal.group(this.initDataForm)
@@ -54,7 +53,8 @@ export class DetailComponent implements OnInit {
           const item = response.data
 
           if(item.logo !== null){
-            this._uploadFileService.getFileBase64ToFileName(item.logo).subscribe(response => {
+            const nameLogo = item.logo.split("/")[1]
+            this._uploadFileService.getFileBase64ToFileName(nameLogo).subscribe(response => {
               if(response.data === null){
                 this.avatarUrl = undefined
               }

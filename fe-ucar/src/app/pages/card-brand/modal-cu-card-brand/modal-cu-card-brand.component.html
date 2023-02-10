@@ -77,7 +77,31 @@
           </nz-form-item>
         </div>
 
-        <div nz-col nzSpan="12">
+
+        <div nz-col nzSpan="12" class="detail-card-brand-info_status">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="24">Brand Status</nz-form-label>
+            <nz-form-control
+              [nzSpan]="24"
+              nzErrorTip="Please select your status!"
+            >
+              <nz-select
+                class="form-select-status"
+                id="brand_status"
+                formControlName="brand_status"
+                nzPlaceHolder="Select a option and change input text above"
+              >
+                <nz-option
+                  *ngFor="let option of optionBrandStatus"
+                  [nzValue]="option"
+                  [nzLabel]="option.label"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <!-- <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label [nzSpan]="24">Brand Status</nz-form-label>
             <nz-form-control
@@ -86,7 +110,7 @@
             >
               <nz-select
                 id="brand_status"
-                class="select-brand-status"
+                class="form-select-status"
                 formControlName="brand_status"
                 nzPlaceHolder="Select a option and change input text above"
               >
@@ -98,7 +122,7 @@
               </nz-select>
             </nz-form-control>
           </nz-form-item>
-        </div>
+        </div> -->
 
         <div nz-col nzSpan="24">
           <nz-form-item>

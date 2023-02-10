@@ -59,12 +59,24 @@
             [nzChecked]="setOfCheckedId.has(item.id)"
             (nzCheckedChange)="onItemChecked(item.id, $event)"
           ></td>
-          <td [width]="'10%'">
-            <img
-              class="table-body-image"
-              src="/assets/images/avatar_item.svg"
-            />
+          <td [width]="'10%'" [align]="'center'">
+            <ng-container
+              *ngIf="item.logo === ''; else existLogo"
+            >
+              <ng-container
+                *ngTemplateOutlet="notLogo"
+              ></ng-container>
+            </ng-container>
+
+            <ng-template #notLogo>
+              <nz-avatar nzIcon="user" [nzSize]="55"></nz-avatar>
+            </ng-template>
+
+            <ng-template #existLogo>
+              <nz-avatar [nzSrc]="linkRootPath + item.logo" [nzSize]="55"></nz-avatar>
+            </ng-template>
           </td>
+
           <td [width]="'30%'" ngClass="td-info">
             <div 
               class="table-body-info-card " 

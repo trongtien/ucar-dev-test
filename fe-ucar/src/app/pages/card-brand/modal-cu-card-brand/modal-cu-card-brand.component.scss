@@ -21,6 +21,8 @@
         font-family: $secondary-font;
         color: $Neutral-7;
     }
+
+    
 }
 
 .title-form-modal-card-brand {
@@ -32,11 +34,22 @@
     border-bottom: pxToRem(1) solid $Neutral-4;
 }
 
-.select-brand-status{
-    width: pxToRem(131);
+.detail-card-brand-info_status{
+    & .form-select-status {
+        max-width: pxToRem(131);
+       
+        & ::ng-deep .ant-select-selector {
+            background: $dark-1;
+            border-radius: pxToRem(48);
 
-    & .ant-select-selector{
-        background: $dark-1 !important;
-        border-radius: pxToRem(48) !important;
+            width: 100%;
+
+            & .ant-select-selection-item {
+                font-family: $secondary-font;
+                font-weight: 500;
+                font-size: pxToRem(16);
+                color: $dark-3;
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ import { formatRouterLink } from '@app/core/helper';
 import { ICommonSelect, IFilterTable, ITableCardBrandItem } from '@app/core/models';
 import { CardBrandService } from '@app/core/services';
 import { DatePipe } from '@angular/common'
+import { environment } from '@environments/environment';
 @Component({
   selector: 'app-card-brand',
   templateUrl: './card-brand.component.html',
@@ -15,6 +16,7 @@ export class CardBrandComponent implements OnInit {
   public isModalCreateBrand: boolean = false
   public setOfCheckedId = new Set<number>();
   public filterStatusSelect: Array<ICommonSelect> = []
+  public linkRootPath = environment.pathImage
 
   constructor(
     private _cardBrandService: CardBrandService,
