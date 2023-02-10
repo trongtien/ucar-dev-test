@@ -77,7 +77,6 @@
           </nz-form-item>
         </div>
 
-
         <div nz-col nzSpan="12" class="detail-card-brand-info_status">
           <nz-form-item>
             <nz-form-label [nzSpan]="24">Brand Status</nz-form-label>
@@ -85,7 +84,52 @@
               [nzSpan]="24"
               nzErrorTip="Please select your status!"
             >
-              <nz-select
+              <a
+                class="select-status-detail"
+                nz-dropdown
+                nzTrigger="click"
+                [nzDropdownMenu]="statusMenu2"
+                [nzPlacement]="'topLeft'"
+              >
+                <div
+                  class="select-status-item {{
+                    selectStatus.label.toLocaleLowerCase()
+                  }}"
+                >
+                  <div class="outside-circle">
+                    <span class="inside-circle"></span>
+                  </div>
+                  <span>{{ selectStatus.label }}</span>
+                  <i nz-icon nzType="down"></i>
+                </div>
+              </a>
+              <nz-dropdown-menu #statusMenu2="nzDropdownMenu">
+                <ul nz-menu nzSelectable class="status-dropdown-menu">
+                  <li
+                    *ngFor="let option of optionBrandStatus"
+                    nz-menu-item
+                    (click)="onChangeStatus(option)"
+                    class=""
+                  >
+                    <div
+                      class="select-status-item {{
+                        option.label.toLocaleLowerCase
+                      }}"
+                    >
+                      <div class="outside-circle">
+                        <span class="inside-circle"></span>
+                      </div>
+                      <span>{{ option.label }}</span>
+                    </div>
+                  </li>
+                </ul>
+              </nz-dropdown-menu>
+              <input
+                name="status"
+                hidden
+                value="selectedStatus.label"
+              />
+              <!-- <nz-select
                 class="form-select-status"
                 id="brand_status"
                 formControlName="brand_status"
@@ -96,7 +140,7 @@
                   [nzValue]="option"
                   [nzLabel]="option.label"
                 ></nz-option>
-              </nz-select>
+              </nz-select> -->
             </nz-form-control>
           </nz-form-item>
         </div>

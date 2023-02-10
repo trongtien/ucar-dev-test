@@ -21,8 +21,6 @@
         font-family: $secondary-font;
         color: $Neutral-7;
     }
-
-    
 }
 
 .title-form-modal-card-brand {
@@ -34,22 +32,88 @@
     border-bottom: pxToRem(1) solid $Neutral-4;
 }
 
-.detail-card-brand-info_status{
-    & .form-select-status {
-        max-width: pxToRem(131);
-       
-        & ::ng-deep .ant-select-selector {
-            background: $dark-1;
-            border-radius: pxToRem(48);
+.detail-card-brand-info_status {
+    
+    & .active {
+        background: $dark-1 !important;
 
-            width: 100%;
+        & .outside-circle {
+            border: 1px solid $dark-3 !important;
 
-            & .ant-select-selection-item {
-                font-family: $secondary-font;
+            & .inside-circle {
+                background-color: $dark-3 !important;
+            }
+        }
+
+        & span {
+            color: $dark-3 !important;
+        }
+    }
+
+    & .select-status-detail {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: pxToRem(8);
+        width: fit-content;
+        height: pxToRem(34);
+        background: #cef7e2;
+        border-radius: pxToRem(48);
+
+        & .select-status-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            padding: pxToRem(5) pxToRem(12);
+            background: #fafafa;
+            border-radius: pxToRem(50);
+
+            & .outside-circle {
+                position: relative;
+                width: pxToRem(14);
+                height: pxToRem(14);
+                border-radius: 50%;
+                margin-right: 10px;
+                border: 1px solid rgba(95, 95, 95, 1);
+
+                & .inside-circle {
+                    position: absolute;
+                    height: pxToRem(8);
+                    width: pxToRem(8);
+                    top: 15%;
+                    left: 15%;
+                    border-radius: 50%;
+                    background-color: rgba(95, 95, 95, 1);
+                }
+            }
+
+            & span {
                 font-weight: 500;
                 font-size: pxToRem(16);
-                color: $dark-3;
+                line-height: pxToRem(24);
+                color: rgba(95, 95, 95, 1);
+            }
+
+            & i {
+                margin-left: 10px;
+                color: rgba(95, 95, 95, 1);
             }
         }
     }
+}
+
+.card-brand-detail_img {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    opacity: 1;
+    display: block;
+    width: 100%;
+    transition: .5s ease;
+    backface-visibility: hidden;
 }

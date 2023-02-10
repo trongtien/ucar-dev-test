@@ -23,10 +23,11 @@ export class ModalCuCardBrandComponent implements OnInit {
   public avatarUrl?: string;
   public loadingUploadFile: boolean = false
   public msgErrUpload: string | null = null
+  public selectStatus: ICommonSelect = { label: "Active", value: 1 }
 
   private initDataForm: any = {
     brand_name: [null, [Validators.required]],
-    brand_status: [{label: "Inactive", value: 0}, [Validators.required]],
+    // brand_status: [{label: "Inactive", value: 0}, [Validators.required]],
     brand_description: [null]
   }
 
@@ -91,6 +92,10 @@ export class ModalCuCardBrandComponent implements OnInit {
     });
   }
 
+  public onChangeStatus(option: ICommonSelect) {
+    this.selectStatus = option
+  }
+
   async submitForm(): Promise<void> {
     if (this.validateForm.valid) {
       let valueForm = this.validateForm.value
@@ -100,7 +105,7 @@ export class ModalCuCardBrandComponent implements OnInit {
             description: valueForm.brand_description,
             logo: response.data,
             name: valueForm.brand_name,
-            status: valueForm.brand_status.value
+            status: +this.selectStatus.value
           })
         })
       }

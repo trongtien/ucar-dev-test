@@ -40,8 +40,6 @@
         font-weight: 600;
         font-size: pxToRem(14);
         color: $secondary-text;
-        padding-bottom: pxToRem(12);
-        border-bottom: pxToRem(1) solid $Neutral-4;
     }
 
     & .ant-upload {
@@ -102,42 +100,19 @@
     & .detail-card-brand-info_status {
         margin-left: pxToRem(32);
 
-        & .form-select-status {
-            max-width: pxToRem(131);
-
-            & ::ng-deep .ant-select-selector {
-                background: $dark-1;
-                border-radius: pxToRem(48);
-
-                width: 100%;
-
-                & .ant-select-selection-item {
-                    font-family: $secondary-font;
-                    font-weight: 500;
-                    font-size: pxToRem(16);
-                    color: $dark-3;
-                }
-            }
-        }
-    }
-
-    & .detail-card-brand-info_status {
-        display: flex;
-        flex-direction: column;
-
         & .active {
-            background: $dark-1 ;
+            background: $dark-1 !important;
 
             & .outside-circle {
-                border: 1px solid $dark-3 ;
+                border: 1px solid $dark-3 !important;
 
                 & .inside-circle {
-                    background-color: $dark-3 ;
+                    background-color: $dark-3 !important;
                 }
             }
 
             & span {
-                color: $dark-3 ;
+                color: $dark-3 !important;
             }
         }
 

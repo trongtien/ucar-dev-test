@@ -13,6 +13,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+
 @NgModule({
   exports: [
     NzLayoutModule,
@@ -28,7 +30,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzModalModule,
     NzFormModule,
     NzGridModule,
-    NzUploadModule
+    NzUploadModule,
+    NzDividerModule
   ]
 })
 export class NgZorroModule { }

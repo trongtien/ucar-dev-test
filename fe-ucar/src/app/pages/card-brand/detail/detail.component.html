@@ -10,6 +10,7 @@
     <label ngClass="card-brand-detail_header-title">
       Brand Details
     </label>
+    
   </div>
   <form
     nz-form
@@ -17,11 +18,12 @@
     (ngSubmit)="submitForm()"
     [formGroup]="formDetail"
   >
-    <div nz-col nzXl="8" nzLg="32">
+    <div nz-col nzXl="12" nzLg="24">
       <label class="title-form-card-brand">Brand Logo</label>
+      <nz-divider nzType="horizontal"></nz-divider>
     </div>
 
-    <div nz-col nzXl="8" nzLg="32" class="mt-36">
+    <div nz-col nzXl="12" nzLg="24" class="mt-36">
       <nz-form-item>
         <nz-form-control
           [nzSpan]="24"
@@ -69,16 +71,17 @@
       </nz-form-item>
     </div>
 
-    <div nz-col nzXl="8" nzLg="32">
+    <div nz-col nzXl="12" nzLg="24">
       <label class="title-form-card-brand">Brand Details</label>
+      <nz-divider nzType="horizontal"></nz-divider>
     </div>
 
-    <div nz-col nzXl="8" nzLg="32" class="detail-card-brand-info">
-      <div nz-col nzXl="8" nzLg="12">
+    <div nz-col nzXl="12" nzLg="12" class="detail-card-brand-info">
+      <div nz-col nzXl="12" nzLg="12">
         <nz-form-item>
-          <nz-form-label [nzSpan]="32">Brand Name</nz-form-label>
+          <nz-form-label [nzSpan]="24">Brand Name</nz-form-label>
           <nz-form-control
-            [nzSpan]="32"
+            [nzSpan]="24"
             nzErrorTip="Please input your branch name!"
           >
             <ng-container *ngIf="isUpdate; else formView">
@@ -103,11 +106,11 @@
         </ng-template>
       </div>
 
-      <div nz-col nzXl="8" nzLg="12" class="detail-card-brand-info_status">
+      <div nz-col nzXl="12" nzLg="12" class="detail-card-brand-info_status">
         <nz-form-item>
-          <nz-form-label [nzSpan]="32">Brand Status</nz-form-label>
+          <nz-form-label [nzSpan]="24">Brand Status</nz-form-label>
           <nz-form-control
-            [nzSpan]="32"
+            [nzSpan]="24"
             nzErrorTip="Please select your status!"
           >
             <a
@@ -145,26 +148,12 @@
               </ul>
             </nz-dropdown-menu>
             <input name="status" hidden value="selectedStatus.label" [disabled]="!isUpdate ? true : false" />
-
-            <!-- <nz-select
-              class="form-select-status"
-              id="brand_status"
-              formControlName="brand_status"
-              nzPlaceHolder="Select a option and change input text above"
-              [nzDisabled]="!isUpdate ? true : false"
-            >
-              <nz-option
-                *ngFor="let option of optionBrandStatus"
-                [nzValue]="option"
-                [nzLabel]="option.label"
-              ></nz-option>
-            </nz-select> -->
           </nz-form-control>
         </nz-form-item>
       </div>
     </div>
 
-    <div nz-col nzXl="12" nzLg="32">
+    <div nz-col nzXl="12" nzLg="24">
       <nz-form-item>
         <nz-form-label [nzSpan]="32">Brand Description</nz-form-label>
         <nz-form-control [nzSpan]="32" nzErrorTip="Please input your username!">
