@@ -18,13 +18,18 @@
         }
     }
 }
-
+.ant-modal-header{
+    padding: pxToRem(16px) pxToRem(24px);
+    box-shadow: inset 0px -1px 0px #F1F1F1;
+    background: $Neutral-2;
+}
 // Form custom
 .ant-form-item {
     & .ant-form-item-label>label {
         font-family: $secondary-font;
         color: $Neutral-6;
         font-weight: 400;
+        font-style: normal;
         font-size: pxToRem(14);
     }
 
@@ -36,6 +41,7 @@
         color: $secondary-text;
         font-weight: 400;
         font-size: pxToRem(14);
+        font-style: normal;
         font-family: $secondary-font;
     }
 
@@ -47,6 +53,7 @@
         font-family: $secondary-font;
         font-weight: 400;
         font-size: pxToRem(14);
+        font-style: normal;
         color: $secondary-placeholder;
     }
 }
@@ -112,4 +119,19 @@
     & ::-webkit-scrollbar-thumb:hover {
         background: $Neutral-6; 
     }
+}
+
+.ant-checkbox-wrapper{
+    .ant-checkbox-input{
+        width: 24px;
+        height: 24px;
+    }
+    .ant-checkbox-inner{
+        width: pxToRem(24);
+        height: pxToRem(24);
+    }
+}
+
+.ant-checkbox-checked .ant-checkbox-inner::after{
+    transform: rotate(45deg) scale(1) translate(-34%,-74%) !important;
 }
