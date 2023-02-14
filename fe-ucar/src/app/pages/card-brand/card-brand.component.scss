@@ -26,6 +26,7 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             display: flex;
+            font-style: normal;
         }
 
         & .card-brand-header_left-select-filter {
@@ -43,6 +44,16 @@
             width: 100%;
             background: $Neutral-3;
             border-radius: pxToRem(9999);
+            padding: pxToRem(8) pxToRem(16);
+            margin-left: pxToRem(45);
+
+            & svg {
+                width: pxToRem(18.75);
+                height: pxToRem(18.75);
+                & path {
+                    fill: $Neutral-7;
+                }
+            }
 
             & .ant-input-prefix {
                 & path {
@@ -51,49 +62,75 @@
             }
 
             & input {
+                font-family: $secondary-font;
+                font-style: normal;
+                font-weight: 400;
+                font-size: pxToRem(14);
+                line-height: pxToRem(22);
+                color: $Neutral-6;
+                margin-left: pxToRem(10.62);
                 background: $Neutral-3;
+            }
+
+            & input::placeholder {
+                font-family: $secondary-font;
+                font-style: normal;
+                font-weight: 400;
+                font-size: pxToRem(14);
+                line-height: pxToRem(22);
+                color: $Neutral-6;
+                margin-left: pxToRem(10.62);
             }
         }
 
         & .car-brand-filter-type {
             width: fit-content;
-            height: 40px;
+            height: pxToRem(40);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 21px;
+            padding: pxToRem(9) pxToRem(16) pxToRem(9) pxToRem(21);
 
-            font-family: 'Poppins';
+            font-family: $secondary-font;
             font-weight: 500;
-            font-size: 14px;
-            line-height: 22px;
-            color: #232323;
+            font-size: pxToRem(14);
+            line-height: pxToRem(22);
+            color: $Neutral-8;
+
+            & span {
+                font-family: $secondary-font;
+                font-weight: 500;
+                font-size: pxToRem(14);
+                line-height: pxToRem(22);
+                color: $Neutral-8;
+            }
 
             & .acticon-up {
-                font-size: 10px;
+                font-size: pxToRem(10);
                 vertical-align: baseline;
-                margin-right: 17px;
+                margin-right: pxToRem(17);
             }
 
             & .anticon-down {
-                font-size: 10px;
+                font-size: pxToRem(10);
                 vertical-align: baseline;
-                margin-right: 17px;
+                margin-right: pxToRem(17);
             }
         }
 
         & .car-brand-dropdown-filter-type-menu {
-            max-width: 164px;
+            max-width: pxToRem(164);
             border: 1px solid #e3e3e3;
             box-shadow: 0px -1px 2px rgb(35 35 35 / 8%), 0px 4px 8px rgb(35 35 35 / 10%);
-            border-radius: 4px;
-            width: 164px;
-          
+            border-radius: pxToRem(4);
+            width: pxToRem(164);
+
             & .ant-dropdown-menu-item:hover {
-              margin: 0 5px;
+                margin: 0 pxToRem(5);
             }
+
             & .ant-dropdown-menu-item-selected {
-              margin: 0 5px;
+                margin: 0 pxToRem(5);
             }
         }
     }
@@ -104,6 +141,21 @@
             border-radius: pxToRem(4);
             background: $frame-2;
             color: $Neutral-1;
+
+            & .card-brand-header_right-button-icon{
+                & svg {
+                    width: pxToRem(10);
+                    height: pxToRem(10);
+                }
+            }
+
+            & .card-brand-header_right-button-name{
+                font-family: $secondary-font;
+                font-style: normal;
+                font-weight: 500;
+                font-size: pxToRem(14);
+                margin-left: pxToRem(17);
+            }
         }
     }
 }
@@ -131,6 +183,18 @@
             text-overflow: ellipsis;
         }
 
+        & .logo-table{
+            width: pxToRem(64);
+            height: pxToRem(64);
+            background: none;
+            color: none;
+        }
+
+        & .td-logo{
+            padding-left: 0;
+            margin-left: pxToRem(40);
+        }
+
         & .td-info {
 
             & .table-body-info-card-bd-active {
@@ -150,20 +214,24 @@
                     font-family: $secondary-font;
                     color: $primary-text;
                     margin-bottom: pxToRem(4);
+                    font-style: normal;
+                    line-height: pxToRem(30);
                 }
 
                 & .table-body-info-card_note {
                     display: flex;
                     margin-bottom: 0;
+                    overflow: hidden;
 
                     & .table-body-info-card_description {
-                        max-width: pxToRem(175);
+                        max-width: pxToRem(160);
                         font-family: $secondary-font;
                         font-size: pxToRem(14);
                         font-weight: 400;
                         color: $Neutral-6;
                         padding-right: pxToRem(16);
                         border-right: 1px solid $Neutral-4;
+                        font-style: normal;
                     }
 
                     & .table-body-info-card_model-number {
@@ -171,6 +239,7 @@
                         font-size: pxToRem(14);
                         font-weight: 500;
                         color: $frame-2;
+                        white-space: nowrap;
                     }
 
                     & .exist-description {
@@ -195,6 +264,8 @@
                 font-weight: 500;
                 color: $primary-text;
                 margin-bottom: pxToRem(12);
+                font-style: normal;
+                line-height: pxToRem(22);
             }
 
             & .table-body-time_date {
@@ -203,6 +274,7 @@
                 font-weight: 400;
                 color: $Neutral-6;
                 margin-bottom: 0;
+                font-style: normal;
             }
         }
 
@@ -237,14 +309,26 @@
                 font-family: $secondary-font;
                 font-weight: 500;
                 font-size: pxToRem(16);
+                font-style: normal;
+                font-family: $secondary-font;
             }
 
             & .table-body-status_name-active {
                 color: $dark-3;
+                font-family: $secondary-font;
+                font-weight: 500;
+                font-size: pxToRem(16);
+                font-style: normal;
+                font-family: $secondary-font;
             }
 
             & .table-body-status_name-inactive {
                 color: $Neutral-7;
+                font-family: $secondary-font;
+                font-weight: 500;
+                font-size: pxToRem(16);
+                font-style: normal;
+                font-family: $secondary-font;
             }
         }
 
@@ -261,6 +345,16 @@
             background: $Neutral-1;
             border: pxToRem(1) solid $Neutral-5;
             border-radius: pxToRem(4);
+            font-style: normal;
+            font-family: $secondary-font;
+
+            & .button-table-name{
+                color: $Neutral-8;
+                font-style: normal;
+                font-family: $secondary-font;
+                font-weight: 500;
+                line-height: pxToRem(22);
+            }
         }
     }
 }

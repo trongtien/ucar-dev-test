@@ -16,6 +16,7 @@
           *ngFor="let item of filterStatusSelect"
           (click)="changeFilterStatus(item)"
           nz-menu-item
+          class="menu-filter-item"
         >
           {{ item.label }}
         </li>
@@ -29,7 +30,7 @@
       <input
         type="text"
         nz-input
-        placeholder="input search text"
+        placeholder="Search car brand"
         (change)="onChangeSearch($event)"
       />
     </nz-input-group>
@@ -46,12 +47,18 @@
       class="card-brand-header_right-button"
       (click)="setIsModalCreateBrand()"
     >
-      <span nz-icon nzType="plus" nzTheme="outline"></span>
-      Add Brand
+      <span nz-icon nzType="plus" nzTheme="outline" class="card-brand-header_right-button-icon"></span>
+      <span class="card-brand-header_right-button-name">Add Brand</span>
     </button>
   </div>
 </div>
 
+
+
+<!-- [nzPageSize]="filterTable.limit ? +filterTable.limit : 10"
+[nzPageIndex]="filterTable.page ? +filterTable.page : 1"
+(nzPageSizeChange)="changePageSize($event)"
+    (nzPageIndexChange)="changePageIndex($event)" -->
 <div class="card-brand-table">
   <nz-table
     #cardBrandTable
@@ -59,38 +66,37 @@
     [nzData]="dataTable"
     [nzBordered]="false"
     [nzLoading]="isLoadingTable"
-    [nzPageSize]="filterTable.limit ? +filterTable.limit : 10"
-    [nzPageIndex]="filterTable.page ? +filterTable.page : 1"
     [nzScroll]="{ x: '150' }"
-    (nzPageSizeChange)="changePageSize($event)"
-    (nzPageIndexChange)="changePageIndex($event)"
+    [nzFrontPagination]="false" 
+    [nzShowPagination]="false"    
   >
     <tbody>
       <ng-container *ngFor="let item of cardBrandTable.data">
         <tr>
           <td
-            [width]="'4%'"
+            [width]="'12%'"
             [nzChecked]="setOfCheckedId.has(item.id)"
             (nzCheckedChange)="onItemChecked(item.id, $event)"
+            class="checked-table"
           ></td>
-          <td [width]="'10'" [align]="'left'" class="td-logo">
+          <td [width]="'40'" [align]="'center'" class="td-logo">
             <ng-container *ngIf="item.logo === ''; else existLogo">
               <ng-container *ngTemplateOutlet="notLogo"></ng-container>
             </ng-container>
 
             <ng-template #notLogo>
-              <nz-avatar nzIcon="user" [nzSize]="55"></nz-avatar>
+              <nz-avatar nzIcon="user" [class]="'logo-table'"></nz-avatar>
             </ng-template>
 
             <ng-template #existLogo>
               <nz-avatar
+                [class]="'logo-table'"
                 [nzSrc]="linkRootPath + item.logo"
-                [nzSize]="55"
               ></nz-avatar>
             </ng-template>
           </td>
 
-          <td [width]="'150'" ngClass="td-info">
+          <td [width]="'210'" ngClass="td-info">
             <div
               class="table-body-info-card"
               [ngClass]="
@@ -182,7 +188,7 @@
               nzType="default"
               (click)="onDetail(item.id)"
             >
-              View Details
+              <span class="button-table-name">View Details</span>
             </button>
           </td>
         </tr>

@@ -1,5 +1,64 @@
 @import "src/assets/styles";
 
+
+.header-modal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & .action-icon-close {
+        background: #F1F1F1;
+        border: 1px solid $Neutral-4;
+        width: pxToRem(32);
+        height: pxToRem(32);
+        border-radius: 50%;
+        cursor: pointer;
+        padding: pxToRem(10);
+    }
+
+    & .icon-modal-close {
+        background: #F1F1F1;
+        border: 1px solid $Neutral-4;
+        width: pxToRem(12);
+        height: pxToRem(12);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        cursor: pointer;
+    }
+}
+
+.bth-cancel-modal {
+    padding: pxToRem(9) pxToRem(16);
+    width: pxToRem(83);
+    height: pxToRem(40);
+    background: $Neutral-1;
+    border: 1px solid $Neutral-5;
+    border-radius: pxToRem(4);
+    font-style: normal;
+    color: $Neutral-8;
+}
+
+.btn-submit-modal {
+    padding: pxToRem(9) pxToRem(16);
+    width: pxToRem(127);
+    height: pxToRem(40);
+    background: $frame-2;
+    border-radius: pxToRem(4);
+    font-style: normal;
+    color: #FFFFFF;
+
+    span{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        line-height: 22px;
+        color: #FFFFFF !important;
+    }
+}
+
 .modal-create-card-brand-header {
     display: flex;
     flex-direction: column;
@@ -12,6 +71,7 @@
         font-size: pxToRem(16);
         font-family: $secondary-font;
         color: $primary-text;
+        font-style: normal;
     }
 
     & .modal-create-card-brand-header_description {
@@ -20,6 +80,7 @@
         font-size: pxToRem(14);
         font-family: $secondary-font;
         color: $Neutral-7;
+        font-style: normal;
     }
 }
 
@@ -30,10 +91,14 @@
     color: $secondary-text;
     padding-bottom: pxToRem(12);
     border-bottom: pxToRem(1) solid $Neutral-4;
+    font-style: normal;
+}
+
+.item-form-status{
+    padding-left: pxToRem(24);
 }
 
 .detail-card-brand-info_status {
-    
     & .active {
         background: $dark-1 !important;
 
@@ -82,8 +147,8 @@
                     position: absolute;
                     height: pxToRem(8);
                     width: pxToRem(8);
-                    top: 15%;
-                    left: 15%;
+                    top: pxToRem(2.2);
+                    left: pxToRem(2.6);
                     border-radius: 50%;
                     background-color: rgba(95, 95, 95, 1);
                 }
@@ -94,6 +159,7 @@
                 font-size: pxToRem(16);
                 line-height: pxToRem(24);
                 color: rgba(95, 95, 95, 1);
+                font-style: normal;
             }
 
             & i {

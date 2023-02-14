@@ -20,6 +20,7 @@ export class DetailComponent implements OnInit {
 
   // Upload file
   public avatarUrl?: string;
+  private avatarForm: string | null = null;
   public loadingUploadFile: boolean = false
   public msgErrUpload: string | null = null
 
@@ -51,8 +52,9 @@ export class DetailComponent implements OnInit {
         this.idParam = id
         this._cardBrandService.finbdById(id).subscribe(response => {
           const item = response.data
-
+          console.log('item', item)
           if (item.logo !== null) {
+            this.avatarForm = item.logo
             const nameLogo = item.logo.split("/")[1]
             this._uploadFileService.getFileBase64ToFileName(nameLogo).subscribe(response => {
               if (response.data === null) {
@@ -64,6 +66,7 @@ export class DetailComponent implements OnInit {
             })
           } else {
             this.avatarUrl = undefined
+            this.avatarForm = null
           }
 
           this.formDetail.setValue({
@@ -113,7 +116,7 @@ export class DetailComponent implements OnInit {
       } else {
         this.callApiUpdate({
           description: valueForm.brand_description,
-          logo: valueForm.logo,
+          logo: this.avatarForm,
           name: valueForm.brand_name,
           status: +this.selectStatus.value
         })

@@ -97,6 +97,8 @@
         font-family: $primary-font;
         font-size: pxToRem(18);
         font-weight: 400;
+        line-height: pxToRem(23);
+        margin-left: pxToRem(17.11);
       }
     }
     .sidebar-list-menu_item.ant-menu-item-selected {
