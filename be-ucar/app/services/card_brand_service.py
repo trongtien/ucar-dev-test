@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 import logging
+from typing import Optional
 
 from app.repository.card_brand_repository import CardBrandRepository
 from app.repository.card_model_repository import CardModelRepository
@@ -12,7 +13,7 @@ class CardBrandService(ServiceBase, CardBrandRepository):
     def __init__(self):
         super().__init__()
 
-    async def getAll(seft, db: Session, skip: int, limit: int, search_name = str, status = int):
+    async def getAll(seft, db: Session, skip: int, limit: int, search_name: Optional[str] = None, status = int):
         status_query = None if int(status) < 0 else status
 
         queryCardBrands = await seft.selectAll(db, skip=seft.defaul_skip_query(skip),limit=limit, search_name=search_name, status=status_query)
@@ -48,10 +49,6 @@ class CardBrandService(ServiceBase, CardBrandRepository):
             return seft.response(status=400, data=None, code=False, msg='Id card brand already exists')
         else:
             try:
-                print('=================================')
-                print('exist_card_brand', exist_card_brand)
-                print('card_brand_update', card_brand_update)
-                print('=================================')
                 updated_card_brand = await seft.update(db=db, current_card_brand=exist_card_brand, card_brand_update=card_brand_update)
                 return  seft.response(data=updated_card_brand)
             except Exception as e:

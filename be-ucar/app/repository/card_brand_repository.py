@@ -8,20 +8,16 @@ class CardBrandRepository:
 
     @staticmethod
     async def selectAll(db: Session, skip: int, limit: int, search_name: Optional[str] = None, status: Optional[int] = None):
-        offset = limit * skip
-        search = "%{}%".format(search_name.lower())
         
         list_data_engine_card_brand = select(CardBrand)
-
         if hasattr(CardBrand, 'status') and status is not None: 
             list_data_engine_card_brand = list_data_engine_card_brand.filter(CardBrand.status == status)
 
         if hasattr(CardBrand, 'name') and search_name is not None and len(search_name) > 0: 
+            search = "%{}%".format(search_name)
             list_data_engine_card_brand = list_data_engine_card_brand.filter(CardBrand.name.like(search))
 
-        if hasattr(CardBrand, 'status') and status is not None:
-            list_data_engine_card_brand = list_data_engine_card_brand.filter(CardBrand.status == status)
-
+        offset = limit * skip
         return db.execute(list_data_engine_card_brand.offset(offset).limit(limit)).scalars().all()
 
     @staticmethod

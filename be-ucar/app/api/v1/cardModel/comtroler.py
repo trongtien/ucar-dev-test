@@ -16,7 +16,7 @@ logger = logging.getLogger()
 @router.get("",  status_code = status.HTTP_200_OK, name='Get Lít card model')
 async def getAll(page: int = 1, limit: int = 10, status: Optional[str] = -1, search_name: Optional[str] = '', card_brand_id: Optional[int] = None, db: Session = Depends(get_db_pg)):
     try:
-        card_brand = await CardModelService().getAll(db,limit=limit, skip = page, search_name=search_name, status=status)
+        card_brand = await CardModelService().getAll(db,limit=limit, skip = page, search_name=search_name, status=status, card_brand_id=card_brand_id)
         if card_brand.get('code') is not True:
             return DataResponseBase().err_response(code=500, message='Service error')
 

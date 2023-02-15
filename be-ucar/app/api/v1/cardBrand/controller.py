@@ -13,8 +13,9 @@ router = APIRouter()
 logger = logging.getLogger()
 
 @router.get("",  status_code = status.HTTP_200_OK, name='Get list card brand')
-async def getAll(page: int = 1, limit: int = 10, status: Optional[str] = -1, search_name: Optional[str] = '', db: Session = Depends(get_db_pg)):
+async def getAll(page: int = 1, limit: int = 10, status: Optional[str] = -1, search_name: Optional[str] = None, db: Session = Depends(get_db_pg)):
     try:
+        print('search_name', search_name)
         card_brand = await CardBrandService().getAll(db,limit=limit, skip = page, search_name=search_name, status=status)
         if card_brand.get('code') is not True:
             return DataResponseBase().err_response(code=500, message='Service error')

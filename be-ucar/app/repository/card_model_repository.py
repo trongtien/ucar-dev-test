@@ -9,20 +9,19 @@ class CardModelRepository:
 
     @staticmethod
     async def selectAll(db: Session, skip: int, limit: int, search_name: Optional[str] = None, status: Optional[int] = None, card_brand_id: Optional[int] = None):
-
-        offset = limit * skip
-        search = "%{}%".format(search_name.lower())
-        
         list_data_engine_card_modal = select(CardModel)
-        if hasattr(CardModel, 'name') and search_name is not None and len(search_name) > 0: 
+        if hasattr(CardModel, 'name') and search_name is not None: 
+            search = "%{}%".format(search_name)
             list_data_engine_card_modal = list_data_engine_card_modal.filter(CardModel.name.like(search))
 
         if hasattr(CardModel, "card_brand_id") and card_brand_id is not None:
+            print('card_brand_id', card_brand_id)
             list_data_engine_card_modal = list_data_engine_card_modal.filter(CardModel.card_brand_id == card_brand_id)
         
         if hasattr(CardModel, 'status') and status is not None:
             list_data_engine_card_modal = list_data_engine_card_modal.filter(CardModel.status == status)
 
+        offset = limit * skip
         return db.execute(list_data_engine_card_modal.offset(offset).limit(limit)).scalars().all()
 
 
