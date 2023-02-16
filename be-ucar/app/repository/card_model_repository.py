@@ -20,6 +20,8 @@ class CardModelRepository:
         
         if hasattr(CardModel, 'status') and status is not None:
             list_data_engine_card_modal = list_data_engine_card_modal.filter(CardModel.status == status)
+        
+        list_data_engine_card_modal = list_data_engine_card_modal.filter(CardModel.is_delete == False)
 
         offset = limit * skip
         return db.execute(list_data_engine_card_modal.offset(offset).limit(limit)).scalars().all()
@@ -57,7 +59,7 @@ class CardModelRepository:
 
     @staticmethod
     async def find_first_by_card_brand(db: Session, card_brand_id: int):
-        return db.query(CardModel).filter(CardModel.card_brand_id == card_brand_id).first()
+        return db.query(CardModel).filter(CardModel.card_brand_id == card_brand_id).filter(CardModel.is_delete == False).first()
 
     @staticmethod
     async def find_card_modal_by_card_brand(db: Session, card_brand_id: int):

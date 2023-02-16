@@ -17,6 +17,8 @@ class CardBrandRepository:
             search = "%{}%".format(search_name)
             list_data_engine_card_brand = list_data_engine_card_brand.filter(CardBrand.name.like(search))
 
+
+        list_data_engine_card_brand = list_data_engine_card_brand.filter(CardBrand.is_delete == False)
         offset = limit * skip
         return db.execute(list_data_engine_card_brand.offset(offset).limit(limit)).scalars().all()
 

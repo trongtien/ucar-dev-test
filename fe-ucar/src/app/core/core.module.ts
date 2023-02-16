@@ -9,14 +9,12 @@ import { HeaderComponent } from './components/header/header.component';
 import { ToggleLayoutComponent } from './components/toggle-layout/toggle-layout.component';
 import { CommonService, LayoutService, ResizeService } from './services';
 import { HttpClientModule } from '@angular/common/http';
-import { transformDate } from './pipe';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     HeaderComponent,
-    ToggleLayoutComponent,
-    transformDate
+    ToggleLayoutComponent
   ],
   imports: [
     NgZorroModule,

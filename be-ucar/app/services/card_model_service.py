@@ -62,6 +62,7 @@ class CardModelService(ServiceBase, CardModelRepository):
     async def updateDetail(seft, db: Session, id: int, card_model_update: CardModalItemRequest):
         exist_card_model = await seft.findCardById(db=db, id=id)
         exist_card_brand_new = None
+        
         if exist_card_model is None:
             return seft.response(status=400, data=None, code=False, msg='Id card brand already exists')
         

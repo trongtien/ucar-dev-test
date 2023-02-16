@@ -62,6 +62,7 @@ class CardBrandService(ServiceBase, CardBrandRepository):
         
 
         exist_use_card_modal = await CardModelRepository().find_first_by_card_brand(db=db, card_brand_id=id)
+        print('exist_use_card_modal', exist_use_card_modal)
         if exist_use_card_modal is not None:
             return seft.response(status=400, data=None, code=False, msg='Id card brand use in card model')
         
